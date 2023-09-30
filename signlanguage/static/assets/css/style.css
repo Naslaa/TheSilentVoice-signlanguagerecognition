@@ -1,6 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;500;600;700;800&display=swap');
+@font-face {
+	font-family:'Alegreya', serif;
+	src: url(../font/Alegreya/Alegreya-VariableFont_wght.ttf);
+}
+@font-face {
+	font-family: 'Source Sans 3', sans-serif;
+	src: url(../font/Source_Sans_3/SourceSans3-VariableFont_wght.ttf);
+}
 a{
     text-decoration: none !important;
+}
+h1,h2,h3,h4,h5{
+    font-family: 'Alegreya', serif;
+}
+p{
+    font-family: 'Source Sans 3', sans-serif;
+}
+button{
+    border: none;
+}
+header{
+    position: absolute;
+    background-color: transparent;
+    top: 0;
+    width: 100%;
+    height: 5rem;
 }
 .navbar-container{
     border-bottom:1px solid rgba(255, 255, 255,0.5);
@@ -8,11 +33,11 @@ a{
     padding-bottom: 0.8rem;
 }
 .main-banner{
+    padding-top: 5rem;
     background:linear-gradient(rgba(4, 102, 200,0.9)0%,rgba(4, 102, 200,0.9)100% ), url(../img/pattern.jpg);
     height: 100vh;
     background-repeat: repeat;
     background-position: center;
-   
     display: flex;
     justify-content: center;
     align-items: center ;
@@ -22,20 +47,145 @@ a{
     font-size:4.5rem;
     font-family: 'Alegreya', serif;
     color: white;
+    text-align: center;
 }
 .main-banner--img img{
    width: 5rem;
+}
+.img-inner img{
+    width: 3rem;
 }
 .text-white{
     color: white;
 }
 .btn-main{
-    padding: 0.8rem 3rem;
+    padding: 0.8rem 4rem;
     border-radius: 40px;
     font-family: 'Mooli', sans-serif;
     color: rgb(4, 102, 200);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     background-color: white;
     font-family: 'Alegreya', serif;
     font-weight: 500;
+    transition: .5s;
+}
+.btn-main:hover{
+    color: white;
+    border: none;
+    background: transparent;
+}
+.btn-translate{
+    padding: 0.6rem 4rem;
+    border-radius: 40px;
+    font-family: 'Mooli', sans-serif;
+    color: white;
+    font-size: 1.4rem;
+    background-color:  rgb(4, 102, 200);
+    border: 1px solid rgb(4, 102, 200);
+    font-family: 'Alegreya', serif;
+    font-weight: 500;
+    transition: .5s;
+}
+.btn-translate:hover{
+    color: rgb(4, 102, 200);
+    border: 1px solid rgb(4, 102, 200);
+    background: transparent;
+}
+.border-btn{
+    border: 1px solid white;
+    padding: 1rem 0.3rem;
+    border-radius: 40px;
+}
+.px-10{
+    padding-left:8rem;
+    padding-right: 8rem;
+}
+.py-10{
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+.py-6{
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+.section-title h2{
+    color: #333 ;
+    font-size: 3rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 700;
+}
+.section-title span{
+    display: block;
+    height: 4px;
+    background-color: rgba(4, 102, 200,0.9) ;
+    width: 5rem;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0.8rem;
+}
+.main-section{
+    position: relative;
+}
+.circle{
+    position: absolute;
+    top: 3rem;
+    left: 3rem;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background-color: rgba(230, 230, 230, 0.4);
+    z-index: -1;
+}
+.circle1{
+    position: absolute;
+    bottom:18rem ;
+    right: 3rem;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background-color: rgba(230, 230, 230, 0.4);
+    z-index: -1;
+}
+.inner-section label{
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 500;
+    margin-right: auto;
+    margin-left: auto;
+}
+.inner-section input{
+    width: 100%;
+    padding: 0.5rem 1rem;
+    margin-bottom: 3.3rem;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+footer{
+    height: 1.5rem;
+    background-color: rgba(4, 102, 200,0.9);
+}
+@media only screen and (max-width: 600px){
+    html{
+        font-size: 14px;
+    }
+    .main-banner--img img{
+        width: 3rem;
+     }
+     .img-inner img{
+         width: 2rem;
+     }
+     .px-10{
+        padding-left:2rem;
+        padding-right: 2rem;
+    }
+    .main-banner--title {
+        font-size: 3.5rem;
+    }
+    .circle, .circle1{
+        visibility: hidden;
+    }
+    .section-title h2{
+        font-size: 1.9rem;
+    }
 }
