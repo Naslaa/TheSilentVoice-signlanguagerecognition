@@ -21,5 +21,9 @@ from home import views
 
 urlpatterns = [
      path("", views.index, name='home'),
-
+     path('camera-feed/', views.camera_feed, name='camera_feed'),
+     path('detect-sign-language/', views.detect_sign_language, name='detect_sign_language'),
 ]
+
+
+
