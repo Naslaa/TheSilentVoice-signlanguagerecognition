@@ -18,7 +18,7 @@
         <div class="justify-content-end" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link text-white" href="#">Features</a>
+              <a class="nav-link text-white" href="#">.........</a>
             </li>
           </ul>
         </div>
@@ -41,45 +41,122 @@
         ipsa numquam architecto cupiditate, voluptatem sequi fuga. Deleniti minima facilis eius excepturi, nostrum
         laudantium magnam! Maiores dignissimos sunt blanditiis minima in?Lorem ipsum dolor sit amet consectetur
         adipisicing elit. Corporis ipsa numquam architecto cupidita?</p>
-      <div class="border-btn">
-        <a class="btn-main" href="#main">Start Now</a>
+      <div class="d-flex">
+        <div class="border-btn mr-5">
+          <a class="btn-main" href="#asl" role="button" onclick="switchASL();">ASL</a>
+        </div>
+        <div class="border-btn">
+          <a class="btn-main" href="#nsl" role="button" onclick="switchNSL();">NSL</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <section id="main" class=" main-section">
-    <div class="py-6  ">
+  <!-- ASL -->
+  <section id="asl" class="main-section">
+    <div class="py-5  ">
       <div class="circle"></div>
       <div class="circle1"></div>
       <div class="container">
         <div class="row">
           <div class="col-md-6 pe-md-5  d-flex flex-column justify-content-center ">
             <div class="section-title">
-              <h2 class="text-center">Text to Sign Language</h2>
+              <h2 class="text-center">Text to Sign Language(ASL)</h2>
               <span></span>
             </div>
             <div class="mt-5 inner-section  d-flex flex-column align-items-center">
-              <label for="text-input">Enter the Text you want to Translate:</label>
-              <input type="text" name="text-input" id="text-input">
+              <div class="row">
+                <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
+                <div class="text-center">
+                  <input type="text" name="text-input" id="text-input">
+                  <a class="record-btn" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 48 48"><rect x="0" y="0" fill="none" stroke="none" /><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="14" height="27" x="17" y="4" rx="7"/><path stroke-linecap="round" d="M9 23c0 8.284 6.716 15 15 15c8.284 0 15-6.716 15-15M24 38v6"/></g></svg>
+                  </a>
+                </div>
+              </div>
               <button class="btn-translate">Translate</button>
             </div>
           </div>
           <div class="col-md-6 mt-5 mt-md-0">
-              <img src="static/assets/img/img-01.jpg" class="img-fluid" alt="">
+            <img src="static/assets/img/asl.png" class="img-fluid" alt="">
           </div>
         </div>
 
       </div>
     </div>
-    <div class="py-6 pt-0">
+    <div class="py-5 pt-0">
       <div class="container">
         <div class="row">
           <div class="col-md-6 order-2 order-md-1 mt-5 mt-md-0">
-            <img src="static/assets/img/img-01.jpg" class="img-fluid" alt="">
+            <img src="static/assets/img/img-02.png" class="img-fluid" alt="">
           </div>
           <div class="col-md-6  d-flex flex-column justify-content-center order-1 order-md-2">
             <div class="section-title">
-              <h2 class="text-center">Sign Language To Text</h2>
+              <h2 class="text-center">Sign Language To Text(ASL)</h2>
+              <span></span>
+            </div>
+
+            <div class="mt-5 inner-section  d-flex flex-column align-items-center">
+              <div class="img-inner d-flex justify-content-center mb-4">
+                <img src="static/assets/img/r.png" alt="" srcset="">
+                <img src="static/assets/img/e.png" alt="" srcset="">
+                <img src="static/assets/img/c.png" alt="" srcset="">
+                <img src="static/assets/img/o.png" alt="" srcset="">
+                <img src="static/assets/img/r.png" alt="" srcset="">
+                <img src="static/assets/img/d.png" alt="" srcset="">
+              </div>
+              <a href="/camera-feed" class="btn-translate">Record Video </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NSL  -->
+  <section id="nsl" class="main-section">
+    <div class="py-5  ">
+      <div class="circle"></div>
+      <div class="circle1"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 pe-md-5  d-flex flex-column justify-content-center ">
+            <div class="section-title">
+              <h2 class="text-center">Text to Sign Language(NSL)</h2>
+              <span></span>
+            </div>
+            
+            <div class="mt-5 inner-section  d-flex flex-column align-items-center">
+              <div class="row">
+                <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
+                <div class="text-center">
+                  <input type="text" name="text-input" id="text-input">
+                  <a class="record-btn" href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 48 48"><rect x="0" y="0" fill="none" stroke="none" /><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="14" height="27" x="17" y="4" rx="7"/><path stroke-linecap="round" d="M9 23c0 8.284 6.716 15 15 15c8.284 0 15-6.716 15-15M24 38v6"/></g></svg>
+                  </a>
+                </div>
+              </div>
+              <button class="btn-translate">Translate</button>
+            </div>
+            
+          </div>
+          <div class="col-md-6 mt-5 mt-md-0">
+            <img src="static/assets/img/nsl.png" class="img-fluid" alt="">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="py-5 pt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 order-2 order-md-1 mt-5 mt-md-0">
+            <img src="static/assets/img/img-02.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-6  d-flex flex-column justify-content-center order-1 order-md-2">
+            <div class="section-title">
+              <h2 class="text-center">Sign Language To Text(NSL)</h2>
               <span></span>
             </div>
 
@@ -102,7 +179,37 @@
   </section>
 
   <footer></footer>
+  <script>
+    window.onload = switchASL();
+    window.onload = switchNSL();
+    document.getElementById('asl').style.display == 'none';
+    document.getElementById('nsl').style.display == 'none';
+    function switchASL() {
+      console.log("clicked asl")
+      if (document.getElementById('asl').style.display == 'none') {
+        document.getElementById('asl').style.display = 'block';
+        document.getElementById('nsl').style.display = 'none';
+      }
+      else {
+        document.getElementById('asl').style.display = 'none';
+      }
+    }
+    function switchNSL() {
+      console.log("clicked nsl")
+      if (document.getElementById('nsl').style.display == 'none') {
+        document.getElementById('nsl').style.display = 'block';
+        document.getElementById('asl').style.display = 'none';
+      }
+      else {
+        document.getElementById('nsl').style.display = 'none';
+      }
+    }
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
 </body>
-<script href="static/assets/js/bootstrap.min.js"></script>
 
 </html>
