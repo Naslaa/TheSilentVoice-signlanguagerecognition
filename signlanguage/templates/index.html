@@ -69,9 +69,65 @@
                 <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
                 <div class="text-center">
                   <input type="text" name="text-input" id="text-input">
-                  <a class="record-btn" href="">
+                  <!-- <a class="record-btn" id="micButton" href="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 48 48"><rect x="0" y="0" fill="none" stroke="none" /><g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4"><rect width="14" height="27" x="17" y="4" rx="7"/><path stroke-linecap="round" d="M9 23c0 8.284 6.716 15 15 15c8.284 0 15-6.716 15-15M24 38v6"/></g></svg>
-                  </a>
+                  </a> -->
+                  <!-- HTML template -->
+<button class="record-btn" id="micButton">Click to Start Recording</button>
+<div id="output"></div>
+
+<script>
+// JavaScript for handling microphone input
+const micButton = document.getElementById('micButton');
+const outputDiv = document.getElementById('output');
+let isRecording = false;
+
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+recognition.continuous = true;
+recognition.interimResults = true;
+
+micButton.addEventListener('click', () => {
+    if (!isRecording) {
+        micButton.innerText = 'Recording... Click to Stop';
+        recognition.start();
+    } else {
+        micButton.innerText = 'Click to Start Recording';
+        recognition.stop();
+    }
+    isRecording = !isRecording;
+});
+
+recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    outputDiv.innerText = transcript;
+
+    // Send the transcript to the server via AJAX or a form submission
+    sendTranscriptToServer(transcript);
+
+        // Create a FormData object to send the transcript as POST data
+        const formData = new FormData();
+    formData.append('transcript', transcript);
+
+    // Send a POST request to the server
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            // You may need to set additional headers if required by your Django view
+        },
+    })
+    .then(response => response.json())  // Assuming the response from the server is JSON
+    .then(data => {
+        // Handle the response from the server if needed
+        console.log('Server response:', data);
+    })
+    .catch(error => {
+        // Handle any errors that occur during the fetch
+        console.error('Fetch error:', error);
+    });
+}
+    
+</script>
                 </div>
               </div>
               <button class="btn-translate">Translate</button>
@@ -80,6 +136,8 @@
           <div class="col-md-6 mt-5 mt-md-0">
             <img src="static/assets/img/asl.png" class="img-fluid" alt="">
           </div>
+
+
         </div>
 
       </div>
