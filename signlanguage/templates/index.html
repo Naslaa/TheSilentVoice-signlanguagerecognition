@@ -64,22 +64,26 @@
               <h2 class="text-center">Text to Sign Language(ASL)</h2>
               <span></span>
             </div>
-            <div class="mt-5 inner-section  d-flex flex-column align-items-center">
-              <div class="row">
-                <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
-                <div class="text-center">
-                  <input type="text" name="text-input" id="text-input">
-                  <button type="button" class="record-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                      <path fill="white"
-                        d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                    </svg>
-                  </button>
-
+            <form action="" method="post" align="left">
+              {% csrf_token %}
+              <div class="mt-5 inner-section  d-flex flex-column align-items-center">
+                <div class="row">
+                  <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
+                  <div class="text-center">
+                    <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
+                    <button type="button" class="record-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
+                        <path fill="white"
+                          d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
+                      </svg>
+                    </button>
+                    <!-- <input type="submit" class="submit" name="submit"> -->
+                    <a href="/animation" class="submit" type="submit" name="submit">translate </a>
+                  </div>
                 </div>
+
               </div>
-              <button class="btn-translate">Translate</button>
-            </div>
+            </form>
           </div>
           <div class="col-md-6 mt-5 mt-md-0">
             <img src="static/assets/img/asl.png" class="img-fluid" alt="">
@@ -90,6 +94,7 @@
 
       </div>
     </div>
+    
     <div class="py-5 pt-0">
       <div class="container">
         <div class="row">
@@ -137,8 +142,9 @@
               <div class="row">
                 <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
                 <div class="text-center">
-                  <input type="text" name="text-input" id="text-input">
-                  <button type="button" class="record-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <!-- changed -->
+                  <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
+                  <button type="button" name="button" class="mic" onclick="record()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
                       <path fill="white"
                         d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
@@ -147,17 +153,20 @@
 
                 </div>
               </div>
-              <button class="btn-translate">Translate</button>
+              <!-- changed -->
+              <input type="submit" class="submit" name="submit">
             </div>
           </div>
+
+
           <div class="col-md-6 mt-5 mt-md-0">
             <img src="static/assets/img/nsl.png" class="img-fluid" alt="">
           </div>
 
-          </div>
         </div>
-
       </div>
+
+    </div>
     </div>
     <div class="py-5 pt-0">
       <div class="container">
@@ -196,7 +205,7 @@
         <div class=" text-end">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        
+
         <div class="modal-body text-center py-4">
           <h4 id="micText">Click here to start Recording</h4>
           <p></p>
@@ -218,7 +227,7 @@
     </div>
   </div>
   <footer></footer>
-  
+
   <script>
     window.onload = switchASL();
     window.onload = switchNSL();
@@ -251,7 +260,7 @@
     const micButton = document.getElementById('micButton');
     const stopButton = document.getElementById('stopButton');
     const micText = document.getElementById('micText');
-    stopButton.style.display=="none";
+    stopButton.style.display == "none";
     const outputDiv = document.getElementById('output');
     let isRecording = false;
 
@@ -263,11 +272,11 @@
       console.log("Mic button clicked");
       if (!isRecording) {
         micText.innerText = 'Recording... Click to Stop';
-        micButton.style.backgroundColor="red";
+        micButton.style.backgroundColor = "red";
         recognition.start();
       } else {
         micText.innerText = 'Click to Start Recording';
-        micButton.style.backgroundColor="#0466c8e6";
+        micButton.style.backgroundColor = "#0466c8e6";
         recognition.stop();
       }
       isRecording = !isRecording;
