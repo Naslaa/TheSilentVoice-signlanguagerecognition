@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;500;600;700;800&display=swap');
-@font-face {
+/* @font-face {
 	font-family:'Alegreya', serif;
 	src: url(../font/Alegreya/Alegreya-VariableFont_wght.ttf);
 }
 @font-face {
 	font-family: 'Source Sans 3', sans-serif;
 	src: url(../font/Source_Sans_3/SourceSans3-VariableFont_wght.ttf);
+} */
+body{
+    background-color: #ffffff;
+    background-image: url("../img/light-wool.png");
 }
-
 a{
     text-decoration: none !important;
 }
@@ -17,6 +20,8 @@ h1,h2,h3,h4,h5{
 }
 p{
     font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.5;
 }
 button{
     border: none;
@@ -29,6 +34,9 @@ header{
     width: 100%;
     height: 5rem;
 }
+.font-weight-bold{
+    font-weight: 500!important;
+}
 #stopButton{
     display: none;
 }
@@ -39,7 +47,7 @@ header{
 }
 .main-banner{
     padding-top: 5rem;
-    background:linear-gradient(rgba(4, 102, 200,0.9)0%,rgba(4, 102, 200,0.9)100% ), url(../img/pattern.jpg);
+    background:linear-gradient(rgba(4, 102, 200,0.9)0%,rgba(4, 102, 200,0.9)100% ), url(../img/patterjpg);
     height: 100vh;
     background-repeat: repeat;
     background-position: center;
@@ -47,18 +55,36 @@ header{
     justify-content: center;
     align-items: center ;
 }
-
+.inner-banner{
+    background: url(../img/sign_bg.png);
+    height: 35vh;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position:center;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+}
+.media{
+    height: 350px;
+    width: 100%;
+}
+.main-section img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
 .main-banner--title{
-    font-size:4.5rem;
+    font-size:4rem;
     font-family: 'Alegreya', serif;
     color: white;
     text-align: center;
 }
 .main-banner--img img{
-   width: 5rem;
+   width: 4.2rem;
 }
 .img-inner img{
-    width: 3rem;
+    width: 2.5rem;
 }
 .text-white{
     color: white;
@@ -82,12 +108,11 @@ header{
 .btn-translate{
     padding: 0.6rem 4rem;
     border-radius: 40px;
-    font-family: 'Mooli', sans-serif;
     color: white;
     font-size: 1.4rem;
     background-color:  rgb(4, 102, 200);
     border: 1px solid rgb(4, 102, 200);
-    font-family: 'Alegreya', serif;
+    font-family: 'Source Sans 3', sans-serif;
     font-weight: 500;
     transition: .5s;
 }
@@ -103,8 +128,8 @@ header{
     margin-right: 1rem;
 }
 .px-10{
-    padding-left:8rem;
-    padding-right: 8rem;
+    padding-left:11.5rem;
+    padding-right: 11.5rem;
 }
 .py-10{
     padding-top: 6rem;
@@ -116,8 +141,13 @@ header{
 }
 .section-title h2{
     color: #333 ;
-    font-size: 3rem;
+    font-size: 2.2rem;
     font-family: 'Source Sans 3', sans-serif;
+    font-weight: 700;
+}
+.section-title h3{
+    color: #333 ;
+    font-size: 1.8rem;
     font-weight: 700;
 }
 .section-title span{
@@ -128,6 +158,9 @@ header{
     margin-right: auto;
     margin-left: auto;
     margin-top: 0.8rem;
+}
+.bg-white{
+    background-color: white !important;
 }
 .main-section{
     position: relative;
@@ -157,6 +190,14 @@ header{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+.inner-section .card{
+    background-color:rgba(4, 102, 200) ;
+    border-radius: 0;
+
+}
+.text-white{
+    color: white !important;
 }
 .inner-section label{
     font-size: 1.3rem;
@@ -195,8 +236,11 @@ header{
     border: 1px solid #333;
     border-radius: 5px;
     display: inline;
-    margin-bottom: 3.3rem;
+    margin-bottom: 3rem;
     margin-right: 0.2rem;
+}
+.inner-section .card{
+    width: 100%;
 }
 .inner-section span{
     color: rgba(4, 102, 200,0.9);
@@ -208,7 +252,25 @@ footer{
     height: 1.5rem;
     background-color: rgba(4, 102, 200,0.9);
 }
-
+.btn-submit{
+    padding: 0.4rem 1rem;
+    width: 10rem !important;
+    border-radius: 40px !important;
+    color: white;
+    font-size: 1.1rem;
+    background-color:  rgb(4, 102, 200);
+    border: 1px solid rgb(4, 102, 200);
+    font-family: 'Alegreya', serif;
+    font-weight: 500;
+    transition: .5s;
+}
+.text-box{
+    display: inline-block;
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid #333;
+    border-radius: 7px;
+}
 @media only screen and (max-width: 600px){
     html{
         font-size: 14px;

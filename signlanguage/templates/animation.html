@@ -1,113 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/assets/css/style.css">
+    <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css">
     <title>Document</title>
 </head>
+
 <body>
-    <div class="split left">
-        <h2 align="center">Enter Text or Use Mic</h2>
-        <br>
-            <form action="" method="post" align="left">
-            {% csrf_token %}
+    <div class="inner-banner">
+        <div class="container d-flex flex-column align-items-center justify-content-center ">
+            <h1 class="main-banner--title ">ASl</h1>
+        </div>
+    </div>
+    </div>
+    <div class="container my-5 pt-4">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class=" inner-section px-4 py-5 d-flex flex-column align-items-center">
+                    <div class="section-title">
+                        <h3 class="text-center">Enter Text or Use Mic</h3>
+                        <span></span>
+                    </div>
+                    <br>
+                    <form action="" method="post" align="left">
+                        {% csrf_token %}
                         <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
-                        <button type="button" name="button" class="mic" onclick="record()"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                            <path fill="white"
-                              d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                          </svg>
+                        <!-- <button type="button" name="button" class="mic record-btn" onclick="record()"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
+                                <path fill="white"
+                                    d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
+                            </svg>
+                        </button> -->
+                        <button type="button" class="record-btn" id="micButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
+                                <path fill="white"
+                                    d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
+                            </svg>
                         </button>
-                          &nbsp&nbsp&nbsp&nbsp
-                          <input type="submit" name="submit" class="submit">
-    
-            </form>
-            <br>
-            <table cellspacing="20px">
-                <tr>
-                    <td class="td">The text that you entered is:</td>
-                    <td class="td">{{ text }}</td>
-                </tr>
-                <tr>
-                    <td class="td">Key words in sentence:</td>
-                    <td class="td">
-                    <ul class="td" id="list" align="center">
-                          {% for word in words %}
-                        <li id="{{ i }}" style="margin-right: 8px">{{ word }}</li>
-                          {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-        </table></div>
-      <div class="split right">
-      <h2 align="center">Sign Language Animation</h2>
-    
-        <div style="text-align:center">	&nbsp&nbsp
-          <button class="submit" onclick="playPause()">Play/Pause</button>
-          <!--  LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN ASHISH
-    
-          <button onclick="makeBig()">Big</button>
-          <button onclick="makeSmall()">Small</button>
-          <button onclick="makeNormal()">Normal</button>-->
-    
-    
-          <video id="videoPlayer" width="600" height="350"  preload="auto" autoplay>
-            <source src="" type="video/mp4">
-        Your browser does not support HTML5 video.
-          </video>
-          </div></div>
-    
-    
+                        <button type="button" class="record-btn--stop" id="stopButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
+                                <path fill="white"
+                                    d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
+                            </svg>
+                        </button>
+                        <br>
+                        <center>
+                            <input type="submit" name="submit" class="submit btn-submit">
+                        </center>
+
+                    </form>
+                    <br>
+                    <div class="w-100 px-4 " sty>
+                        <div class="row">
+                            <div class="col md 6">
+                                <div class="mb-3">
+                                    <p class="font-weight-bold">Entered Text:</p>
+                                    <div class="text-box">
+                                    <span class="text-input">{{ text }}</span> 
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col md 6">
+                                <div  id="list" align="center" style="list-style: none;">
+                                    <p class="font-weight-bold">Keywords in sentence: </p>
+                                    
+                                    <div class="text-box">
+                                        {% for word in words %}
+                                        <span id="{{ i }}" style="margin-right: 8px">{{ word }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card px-4 py-5">
+                    <div class="section-title mb-5">
+                        <h3 class="text-center">Sign Language Animation</h3>
+                        <span></span>
+                    </div>
+
+                    <div style="text-align:center"> &nbsp&nbsp
+                        <button class="submit" onclick="playPause()">Play/Pause</button>
+                        <!--  LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN ASHISH
+                
+                      <button onclick="makeBig()">Big</button>
+                      <button onclick="makeSmall()">Small</button>
+                      <button onclick="makeNormal()">Normal</button>-->
+
+
+                        <video id="videoPlayer" width="600" height="350" preload="auto" autoplay>
+                            <source src="" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../static/assets/js/main.js"></script>
     <script>
+        
+        const micButton = document.getElementById('micButton');
+        const stopButton = document.getElementById('stopButton');
+        stopButton.style.display == "none";
+        let isRecording = false;
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        micButton.addEventListener('click', () => {
+            if (!isRecording) {
+                micButton.style.backgroundColor = "red";
+                recognition.start();
+            } else {
+                micButton.style.backgroundColor = "#0466c8e6";
+                recognition.stop();
+            }
+            isRecording = !isRecording;
+        });
+
+        recognition.onresult = function (event) {
+            console.log(event)
+            document.getElementById('speechToText').value = event.results[0][0].transcript;
+        }
+        recognition.start();
+
         //webkitSpeechRecognition api for speech to text conversion
-        function record(){
-            var recognition = new webkitSpeechRecognition();
-            recognition.lang='en-IN';
-    
-            recognition.onresult = function(event){
-                console.log(event)
-                document.getElementById('speechToText').value = event.results[0][0].transcript;
-            }
-            recognition.start();
-         }
-        function play()
-        {
+        // function record() {
+        //     var recognition = new webkitSpeechRecognition();
+        //     recognition.lang = 'en-IN';
+
+        // recognition.onresult = function (event) {
+        //     console.log(event)
+        //     document.getElementById('speechToText').value = event.results[0][0].transcript;
+        // }
+        // recognition.start();
+        // }
+
+        function play() {
             var videoSource = new Array();
-            var	videos = document.getElementById("list").getElementsByTagName("li");
+            var videos = document.getElementById("list").getElementsByTagName("span");
             var j;
-            for(j=0;j<videos.length;j++)
-            {
-                videoSource[j] = "/static/assets/ASL/" + videos[j].innerHTML +".mp4";
+            for (j = 0; j < videos.length; j++) {
+                videoSource[j] = "/static/assets/ASL/" + videos[j].innerHTML + ".mp4";
             }
-    
+
             var i = 0; // define i
             var videoCount = videoSource.length;
-    
-            function videoPlay(videoNum)
-            {
+
+            function videoPlay(videoNum) {
                 document.getElementById("list").getElementsByTagName("li")[videoNum].style.color = "#09edc7";
                 document.getElementById("list").getElementsByTagName("li")[videoNum].style.fontSize = "xx-large";
                 document.getElementById("videoPlayer").setAttribute("src", videoSource[videoNum]);
                 document.getElementById("videoPlayer").load();
                 document.getElementById("videoPlayer").play();
-    
+
             }
             document.getElementById('videoPlayer').addEventListener('ended', myHandler, false);
             document.getElementById("list").getElementsByTagName("li")[0].style.color = "#09edc7";
             document.getElementById("list").getElementsByTagName("li")[0].style.fontSize = "xx-large";
-    
+
             videoPlay(0); // play the video
-    
-            function myHandler()
-            {
-                 document.getElementById("list").getElementsByTagName("li")[i].style.color = "#feda6a";
+
+            function myHandler() {
+                document.getElementById("list").getElementsByTagName("li")[i].style.color = "#feda6a";
                 document.getElementById("list").getElementsByTagName("li")[i].style.fontSize = "20px";
                 i++;
-                if (i == videoCount)
-                {
-                       document.getElementById("videoPlayer").pause();
+                if (i == videoCount) {
+                    document.getElementById("videoPlayer").pause();
                 }
-                 else
-                 {
+                else {
                     videoPlay(i);
                 }
             }
@@ -127,15 +201,18 @@
             document.getElementById("videoPlayer").width = 420;
             document.getElementById("videoPlayer").height =280;
         }*/
-        function playPause(){
-              if (document.getElementById("videoPlayer").paused){
-                play();}
-              else{
-                document.getElementById("videoPlayer").pause();}
+        function playPause() {
+            if (document.getElementById("videoPlayer").paused) {
+                play();
             }
-    
-        </script>
-    
-      
+            else {
+                document.getElementById("videoPlayer").pause();
+            }
+        }
+
+    </script>
+
+
 </body>
+
 </html>

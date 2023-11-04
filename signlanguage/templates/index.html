@@ -27,20 +27,17 @@
   </header>
   <div class="main-banner">
     <div class="container py-5 d-flex flex-column align-items-center justify-content-center ">
-      <div class="main-banner--img">
+      <div class="main-banner--img ">
         <img src="static/assets/img/w.png" alt="" srcset="">
-        <img class="mb-5" src="static/assets/img/e.png" alt="" srcset="">
+        <img class="mb-4" src="static/assets/img/e.png" alt="" srcset="">
         <img src="static/assets/img/l.png" alt="" srcset="">
-        <img class="mb-5" src="static/assets/img/c.png" alt="" srcset="">
+        <img class="mb-4" src="static/assets/img/c.png" alt="" srcset="">
         <img src="static/assets/img/o.png" alt="" srcset="">
-        <img class="mb-5" src="static/assets/img/m.png" alt="" srcset="">
+        <img class="mb-4" src="static/assets/img/m.png" alt="" srcset="">
         <img src="static/assets/img/e.png" alt="" srcset="">
       </div>
-      <h1 class="main-banner--title  mb-4">Welcome To The Silent Voice</h1>
-      <p class="text-center px-10 mb-4 text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-        ipsa numquam architecto cupiditate, voluptatem sequi fuga. Deleniti minima facilis eius excepturi, nostrum
-        laudantium magnam! Maiores dignissimos sunt blanditiis minima in?Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Corporis ipsa numquam architecto cupidita?</p>
+      <h1 class="main-banner--title  mb-3">Welcome To The Silent Voice</h1>
+      <p class="text-center px-10 mb-5 text-white">The silent voice is a sign language assistance system designed to bridge the communication gap between the abled-people and hearing-impaired people who rely on sign language as their primary means of communication.</p>
       <div class="d-flex">
         <div class="border-btn mr-5">
           <a class="btn-main" href="#asl" role="button" onclick="switchASL();">ASL</a>
@@ -54,20 +51,24 @@
 
   <!-- ASL -->
   <section id="asl" class="main-section">
-    <div class="py-5  ">
-      <div class="circle"></div>
-      <div class="circle1"></div>
+    <div class="py-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 pe-md-5  d-flex flex-column justify-content-center ">
+          <div class="col-md-6 mt-md-0 d-flex flex-column align-items-center ">
+            <div class="media">
+              <img src="static/assets/img/asl.png" class="img-fluid" alt="">
+            </div>
             <div class="section-title">
               <h2 class="text-center">Text to Sign Language(ASL)</h2>
               <span></span>
             </div>
-            <form action="" method="post" align="left">
+            <!-- <form action="" method="post" align="left"> -->
               {% csrf_token %}
-              <div class="mt-5 inner-section  d-flex flex-column align-items-center">
-                <div class="row">
+              <div class="mt-5 inner-section d-flex flex-column align-items-center">
+                
+                <a href="/animation" class="btn-translate">Translate</a>
+
+                <!-- <div class="row">
                   <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
                   <div class="text-center">
                     <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
@@ -76,51 +77,36 @@
                         <path fill="white"
                           d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
                       </svg>
-                    </button>
-                    <!-- <input type="submit" class="submit" name="submit"> -->
+                    </button> 
+                    <input type="submit" class="submit" name="submit">
                     <a href="/animation" class="submit" type="submit" name="submit">translate </a>
                   </div>
-                </div>
+                </div> -->
 
               </div>
-            </form>
+            <!-- </form> -->
           </div>
-          <div class="col-md-6 mt-5 mt-md-0">
-            <img src="static/assets/img/asl.png" class="img-fluid" alt="">
-          </div>
-
-
-        </div>
-
-      </div>
-    </div>
-    
-    <div class="py-5 pt-0">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 order-2 order-md-1 mt-5 mt-md-0">
-            <img src="static/assets/img/img-02.png" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-6  d-flex flex-column justify-content-center order-1 order-md-2">
+          <div class="col-md-6 mt-md-0 d-flex flex-column align-items-center ">
+            <div class="media">
+              <img src="static/assets/img/img-02.png" class="img-fluid" alt="">
+            </div>
             <div class="section-title">
               <h2 class="text-center">Sign Language To Text(ASL)</h2>
               <span></span>
             </div>
 
             <div class="mt-5 inner-section  d-flex flex-column align-items-center">
-              <div class="img-inner d-flex justify-content-center mb-4">
+              <!-- <div class="img-inner d-flex justify-content-center mb-4">
                 <img src="static/assets/img/r.png" alt="" srcset="">
                 <img src="static/assets/img/e.png" alt="" srcset="">
                 <img src="static/assets/img/c.png" alt="" srcset="">
                 <img src="static/assets/img/o.png" alt="" srcset="">
                 <img src="static/assets/img/r.png" alt="" srcset="">
                 <img src="static/assets/img/d.png" alt="" srcset="">
-              </div>
-              <a href="/camera-feed" class="btn-translate">Record Video </a>
-            </div>
+              </div> -->
+              <a href="/camera-feed" class="btn-translate">Translate</a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -228,95 +214,7 @@
   </div>
   <footer></footer>
 
-  <script>
-    window.onload = switchASL();
-    window.onload = switchNSL();
-    document.getElementById('asl').style.display == 'none';
-    document.getElementById('nsl').style.display == 'none';
-    function switchASL() {
-      console.log("clicked asl")
-      if (document.getElementById('asl').style.display == 'none') {
-        document.getElementById('asl').style.display = 'block';
-        document.getElementById('nsl').style.display = 'none';
-      }
-      else {
-        document.getElementById('asl').style.display = 'none';
-      }
-    }
-    function switchNSL() {
-      console.log("clicked nsl")
-      if (document.getElementById('nsl').style.display == 'none') {
-        document.getElementById('nsl').style.display = 'block';
-        document.getElementById('asl').style.display = 'none';
-      }
-      else {
-        document.getElementById('nsl').style.display = 'none';
-      }
-    }
-
-
-
-    // JavaScript for handling microphone input
-    const micButton = document.getElementById('micButton');
-    const stopButton = document.getElementById('stopButton');
-    const micText = document.getElementById('micText');
-    stopButton.style.display == "none";
-    const outputDiv = document.getElementById('output');
-    let isRecording = false;
-
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-
-    micButton.addEventListener('click', () => {
-      console.log("Mic button clicked");
-      if (!isRecording) {
-        micText.innerText = 'Recording... Click to Stop';
-        micButton.style.backgroundColor = "red";
-        recognition.start();
-      } else {
-        micText.innerText = 'Click to Start Recording';
-        micButton.style.backgroundColor = "#0466c8e6";
-        recognition.stop();
-      }
-      isRecording = !isRecording;
-    });
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      outputDiv.innerText = transcript;
-
-      // Send the transcript to the server via AJAX or a form submission
-      sendTranscriptToServer(transcript);
-    };
-
-    function sendTranscriptToServer(transcript) {
-      // Define the URL of your Django view for processing
-      const url = './home/views.py/';
-
-      // Create a FormData object to send the transcript as POST data
-      const formData = new FormData();
-      formData.append('transcript', transcript);
-
-      // Send a POST request to the server
-      fetch(url, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          // You may need to set additional headers if required by your Django view
-        },
-      })
-        .then(response => response.json())  // Assuming the response from the server is JSON
-        .then(data => {
-          // Handle the response from the server if needed
-          console.log('Server response:', data);
-        })
-        .catch(error => {
-          // Handle any errors that occur during the fetch
-          console.error('Fetch error:', error);
-        });
-    }
-  </script>
+  <script src="../static/assets/js/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
