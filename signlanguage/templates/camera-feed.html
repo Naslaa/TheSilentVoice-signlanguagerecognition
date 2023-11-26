@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language To Text Conversion</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Sign Language To Text Conversion</h1>
+    
+    <div id="image-panel">
+        <video id="webcam-video" width="320" height="240" autoplay></video>
+    </div>
+
+
+    <div id="current-symbol">
+        <h2>Character:</h2>
+        <p id="character-value">Empty</p>
+    </div>
+    
+    <div id="word">
+        <h2>Word:</h2>
+        <p id="word-value"></p>
+    </div>
+    
+    <div id="sentence">
+        <h2>Sentence:</h2>
+        <p id="sentence-value"></p>
+    </div>
+    
+    <div id="suggestions">
+        <h2>Suggestions:</h2>
+        <ul>
+            <li><button id="suggestion1"></button></li>
+            <li><button id="suggestion2"></button></li>
+            <li><button id="suggestion3"></button></li>
+        </ul>
+    </div>
+    
+    <button id="action1">Action 1</button>
+    <button id="action2">Action 2</button>
+    <button id="action3">Action 3</button>
+
+    <!-- Include JavaScript for functionality -->
+    <script>
+        // Access the webcam and display the video stream
+        const videoElement = document.getElementById("webcam-video");
+
+        async function setupWebcam() {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            videoElement.srcObject = stream;
+        }
+
+        setupWebcam();
+    </script>
+</body>
+</html>

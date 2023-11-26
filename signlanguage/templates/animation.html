@@ -65,10 +65,10 @@
                                 </div>
                             </div>
                             <div class="col md 6">
-                                <div  id="list" align="center" style="list-style: none;">
+                                <div   align="center" style="list-style: none;">
                                     <p class="font-weight-bold">Keywords in sentence: </p>
                                     
-                                    <div class="text-box">
+                                    <div class="text-box" id="list">
                                         {% for word in words %}
                                         <span id="{{ i }}" style="margin-right: 8px">{{ word }}</span>
                                         {% endfor %}
@@ -130,7 +130,7 @@
             }
             isRecording = !isRecording;
         });
-
+        
         recognition.onresult = function (event) {
             console.log(event)
             document.getElementById('speechToText').value = event.results[0][0].transcript;
@@ -161,22 +161,22 @@
             var videoCount = videoSource.length;
 
             function videoPlay(videoNum) {
-                document.getElementById("list").getElementsByTagName("li")[videoNum].style.color = "#09edc7";
-                document.getElementById("list").getElementsByTagName("li")[videoNum].style.fontSize = "xx-large";
+                document.getElementById("list").getElementsByTagName("span")[videoNum].style.color = "#09edc7";
+                document.getElementById("list").getElementsByTagName("span")[videoNum].style.fontSize = "xx-large";
                 document.getElementById("videoPlayer").setAttribute("src", videoSource[videoNum]);
                 document.getElementById("videoPlayer").load();
                 document.getElementById("videoPlayer").play();
 
             }
             document.getElementById('videoPlayer').addEventListener('ended', myHandler, false);
-            document.getElementById("list").getElementsByTagName("li")[0].style.color = "#09edc7";
-            document.getElementById("list").getElementsByTagName("li")[0].style.fontSize = "xx-large";
+            document.getElementById("list").getElementsByTagName("span")[0].style.color = "#09edc7";
+            document.getElementById("list").getElementsByTagName("span")[0].style.fontSize = "xx-large";
 
             videoPlay(0); // play the video
 
             function myHandler() {
-                document.getElementById("list").getElementsByTagName("li")[i].style.color = "#feda6a";
-                document.getElementById("list").getElementsByTagName("li")[i].style.fontSize = "20px";
+                document.getElementById("list").getElementsByTagName("span")[i].style.color = "#feda6a";
+                document.getElementById("list").getElementsByTagName("span")[i].style.fontSize = "20px";
                 i++;
                 if (i == videoCount) {
                     document.getElementById("videoPlayer").pause();
