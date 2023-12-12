@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -34,6 +34,7 @@ from django.views.decorators.csrf import csrf_exempt
 import cv2
 import base64
 from io import BytesIO
+import subprocess
 
 
 # In your Django app's views.py
@@ -51,13 +52,19 @@ from keras.models import model_from_json
 import cv2
 import numpy as np
 import base64
-from django.http import HttpResponse
-from django.shortcuts import render
+
+
 from django.views.decorators import gzip
 from django.views import View
 from django.http import StreamingHttpResponse
 from django.utils.decorators import method_decorator
 from django.urls import reverse
+
+
+from nltk.stem import WordNetLemmatizer
+from nltk import pos_tag
+from django.contrib.staticfiles import finders
+from sklearn.feature_extraction.text import CountVectorizer
 
 
 def animation_view(request):
@@ -137,11 +144,21 @@ def animation_view(request):
 			else:
 				filtered_text.append(w)
 		words = filtered_text;
+		
+        
 
 
 		return render(request,'animation.html',{'words':words,'text':text})
 	else:
+
 		return render(request,'animation.html')
+
+
+
+
+def camera_feed(request):
+	result= subprocess.run(['python', './camera.py'], capture_output=True, text=True)
+	return render(request, 'camera-feed.html',{'output':result.stdout})
 
 
 

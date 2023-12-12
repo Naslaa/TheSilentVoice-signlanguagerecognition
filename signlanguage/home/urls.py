@@ -22,11 +22,15 @@ from home import views
 urlpatterns = [
      path("", views.index, name='home'),
     #  path('video/', views.video_feed, name='video'),
-    #  path('camera-feed/', views.camera_feed, name='camera_feed'),
+     path('camera-feed/', views.camera_feed, name='camera_feed'),
 
  
     #  path('detect-sign-language/', views.detect_sign_language, name='detect_sign_language'),
      path('animation/',views.animation_view,name='animation'),
+    #    path('video_feed', views.video_feed, name='video_feed'),
+    # path('webcam_feed', views.webcam_feed, name='webcam_feed'),
+    # path('mask_feed', views.mask_feed, name='mask_feed'),
+	# path('livecam_feed', views.livecam_feed, name='livecam_feed'),
      
 ]
 

@@ -44,17 +44,6 @@
     <button id="action2">Action 2</button>
     <button id="action3">Action 3</button>
 
-    <!-- Include JavaScript for functionality -->
-    <script>
-        // Access the webcam and display the video stream
-        const videoElement = document.getElementById("webcam-video");
-
-        async function setupWebcam() {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            videoElement.srcObject = stream;
-        }
-
-        setupWebcam();
-    </script>
+    <pre> {{output}}</pre>
 </body>
 </html>

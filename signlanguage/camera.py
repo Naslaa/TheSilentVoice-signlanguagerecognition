@@ -1,59 +1,126 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+import tensorflow as tf
+import cv2
+import mediapipe as mp
+from keras.models import load_model
 import numpy as np
-import math
-import cv2 as cv
-cap = cv.VideoCapture(0)
+import pandas as pd
+import time
 
-_, img = cap.read()
-cv.rectangle(img, (300, 300), (100, 100), (0, 255, 0), 0)
-crop_img = img[100:300, 100:300]
-grey = cv.cvtColor(crop_img, cv.COLOR_BGR2GRAY)
-value = (35, 35)
-blurred_ = cv.GaussianBlur(grey, value, 0)
-_, thresholded = cv.threshold(blurred_, 127, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)
-image, contours, hierarchy = cv.findContours(thresholded.copy(), cv.RETR_TREE, cv.CHAIN_APPROX_NONE)
-count1 = max(contours, key=lambda x: cv.contourArea(x))
-x, y, w, h = cv.boundingRect(count1)
-cv.rectangle(crop_img, (x, y), (x + w, y + h), (0, 0, 255), 0)
-hull = cv.convexHull(count1)
-drawing = np.zeros(crop_img.shape, np.uint8)
-cv.drawContours(drawing, [count1], 0, (0, 255, 0), 0)
-cv.drawContours(drawing, [hull], 0, (0, 0, 255), 0)
-hull = cv.convexHull(count1, returnPoints=False)
-defects = cv.convexityDefects(count1, hull)
+model = load_model('./model/ASLmodel.h5')
 
-count_defects = 0
-cv.drawContours(thresholded, contours, -1, (0, 255, 0), 3)
+# Initialize MediaPipe
+mphands = mp.solutions.hands
+hands = mphands.Hands()
+mp_drawing = mp.solutions.drawing_utils
+cap = cv2.VideoCapture(0)
 
-for i in range(defects.shape[0]):
-    s, e, f, d = defects[i, 0]
-    start = tuple(count1[s][0])
-    end = tuple(count1[e][0])
-    far = tuple(count1[f][0])
-    a = math.sqrt((end[0] - start[0]) ** 2 + (end[1] - start[1]) ** 2)
-    b = math.sqrt((far[0] - start[0]) ** 2 + (far[1] - start[1]) ** 2)
-    c = math.sqrt((end[0] - far[0]) ** 2 + (end[1] - far[1]) ** 2)
-    angle = math.acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c)) * 57
+letterpred = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y']
 
-    if angle <= 90:
-        count_defects += 1
-        cv.circle(crop_img, far, 1, [0, 0, 255], -1)
+while True:
+    _, frame = cap.read()
+    h, w, c = frame.shape
 
-    cv.line(crop_img, start, end, [0, 255, 0], 2)
+    # Convert BGR frame to RGB for Mediapipe
+    framergb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    result = hands.process(framergb)
+    hand_landmarks = result.multi_hand_landmarks
 
-if count_defects == 1:
-    cv.putText(img, "2 fingers", (50, 50), cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255))
-elif count_defects == 2:
-    str = "3 fingers"
-    cv.putText(img, str, (5, 50), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255))
-elif count_defects == 3:
-    cv.putText(img, "4 fingers", (50, 50), cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255))
-elif count_defects == 4:
-    cv.putText(img, "5 fingers", (50, 50), cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255))
-elif count_defects == 0:
-    cv.putText(img, "one", (50, 50), cv.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255))
-cv.imshow('main window', img)
-all_img = np.hstack((drawing, crop_img))
-cv.imshow('Contours', all_img)
-k = cv.waitKey(10)
+    if hand_landmarks:
+        for handLMs in hand_landmarks:
+            x_max = 0
+            y_max = 0
+            x_min = w
+            y_min = h
+            for lm in handLMs.landmark:
+                x, y = int(lm.x * w), int(lm.y * h)
+                if x > x_max:
+                    x_max = x
+                if x < x_min:
+                    x_min = x
+                if y > y_max:
+                    y_max = y
+                if y < y_min:
+                    y_min = y
+            y_min -= 20
+            y_max += 20
+            x_min -= 20
+            x_max += 20
 
-   
+            # Extract hand region from the frame
+            hand_image = frame[y_min:y_max, x_min:x_max]
+
+            # Convert hand image to grayscale
+            analysisframe = cv2.cvtColor(hand_image, cv2.COLOR_BGR2GRAY)
+            analysisframe = cv2.resize(analysisframe, (200, 200))  # Adjust as needed for your model
+
+            # Display hand region
+            cv2.imshow("Hand Region", analysisframe)
+
+            # Convert image data to DataFrame
+            datan = pd.DataFrame(analysisframe)
+
+            # Normalize pixel values
+            pixeldata = analysisframe / 255.0
+
+            # Reshape for model prediction
+            pixeldata = pixeldata.reshape(-1, 200, 200, 1)
+
+            # Make predictions
+            prediction = model.predict(pixeldata)
+            predarray = np.array(prediction[0])
+
+            # Print predictions
+            letter_prediction_dict = {letterpred[i]: predarray[i] for i in range(len(letterpred))}
+            predarrayordered = sorted(predarray, reverse=True)
+            high1 = predarrayordered[0]
+            high2 = predarrayordered[1]
+            high3 = predarrayordered[2]
+            for key, value in letter_prediction_dict.items():
+                if value == high1:
+                    print("Predicted Character 1: ", key)
+                    print('Confidence 1: ', 100 * value)
+                elif value == high2:
+                    print("Predicted Character 2: ", key)
+                    print('Confidence 2: ', 100 * value)
+                elif value == high3:
+                    print("Predicted Character 3: ", key)
+                    print('Confidence 3: ', 100 * value)
+
+            time.sleep(5)  # Wait for 5 seconds before capturing another image
+
+    # Draw hand landmarks on the frame
+            hand_landmarks = result.multi_hand_landmarks
+            if hand_landmarks:
+                for handLMs in hand_landmarks:
+                    x_max = 0
+                    y_max = 0
+                    x_min = w
+                    y_min = h
+                    for lm in handLMs.landmark:
+                        x, y = int(lm.x * w), int(lm.y * h)
+                        if x > x_max:
+                            x_max = x
+                        if x < x_min:
+                            x_min = x
+                        if y > y_max:
+                            y_max = y
+                        if y < y_min:
+                            y_min = y
+                    y_min -= 20
+                    y_max += 20
+                    x_min -= 20
+                    x_max += 20
+                    cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
+            cv2.imshow("Frame", frame)
+
+    # Exit condition
+    k = cv2.waitKey(1)
+    if k%256 == 27:
+        # ESC pressed
+        print("Escape hit, closing...")
+        break
+ 
+cap.release()
+cv2.destroyAllWindows()
