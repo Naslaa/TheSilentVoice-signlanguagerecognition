@@ -27,6 +27,8 @@ urlpatterns = [
  
     #  path('detect-sign-language/', views.detect_sign_language, name='detect_sign_language'),
      path('animation/',views.animation_view,name='animation'),
+     path('animations/',views.nanimation_view,name='animations'),
+
     #    path('video_feed', views.video_feed, name='video_feed'),
     # path('webcam_feed', views.webcam_feed, name='webcam_feed'),
     # path('mask_feed', views.mask_feed, name='mask_feed'),

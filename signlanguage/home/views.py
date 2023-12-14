@@ -153,7 +153,50 @@ def animation_view(request):
 
 		return render(request,'animation.html')
 
+import unicodedata
 
+def custom_nepali_tokenizer(text):
+    tokens = []
+    current_token = ''
+    
+    for char in text:
+        if unicodedata.category(char)[0] in ('L', 'M'):  # Checks if the character is a letter or a combining mark
+            current_token += char
+        else:
+            if current_token:
+                tokens.append(current_token)
+                current_token = ''
+            # Append non-letter characters as tokens
+            tokens.append(char)
+
+    if current_token:
+        tokens.append(current_token)
+
+    return tokens
+
+def get_video_for_letter(letter):
+    # Replace this function with code to retrieve the video for a Nepali letter from the database
+    # This function should return the path or URL of the video file corresponding to the letter
+    # Example:
+    video_path = f'static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
+    return video_path
+
+def nanimation_view(request):
+    if request.method == 'POST':
+        text = request.POST.get('sen')
+        
+        # Perform necessary Nepali language processing steps here
+        letters = custom_nepali_tokenizer(text)  # Break Nepali text into individual letters
+
+        # Extract videos for each letter
+        videos = []
+        for letter in letters:
+            video_path = get_video_for_letter(letter)
+            videos.append(video_path)
+
+        return render(request, 'animation.html', {'videos': videos, 'text': text})
+    else:
+        return render(request, 'animation.html')
 
 
 def camera_feed(request):
