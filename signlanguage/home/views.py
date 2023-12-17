@@ -194,9 +194,9 @@ def nanimation_view(request):
             video_path = get_video_for_letter(letter)
             videos.append(video_path)
 
-        return render(request, 'animation.html', {'videos': videos, 'text': text})
+        return render(request, 'nanimation.html', {'videos': videos, 'text': text})
     else:
-        return render(request, 'animation.html')
+        return render(request, 'nanimation.html')
 
 
 def camera_feed(request):
@@ -204,9 +204,8 @@ def camera_feed(request):
 	return render(request, 'camera-feed.html',{'output':result.stdout})
 
 
-
-
-
-
 def index(request):
     return render(request, 'index.html')
+
+def ncamera_feed(request):
+	return render(request, 'ncamera-feed.html')

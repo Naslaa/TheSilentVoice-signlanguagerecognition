@@ -13,38 +13,20 @@
     <div class="container  my-5 card">
         <div class="row">
             <div class="py-large col-lg-6 inner-section  pl-4 pr-5 ">
-                <a class="inner-link" href="http://127.0.0.1:8000/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <a class="inner-link" href="    "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                     </svg> Home</a>
 
                 <div class="section-title mt-3" style="margin-bottom: 45px;">
-                    <h3>Text to Sign Language(ASL)</h3>
+                    <h3>Text to Sign Language(NSL)</h3>
                     <span style="margin-left: 0;"></span>
                 </div>
                 <form class="mb-4" action="" method="post" align="left">
                     {% csrf_token %}
-                    <label>Enter Text or Start Recording</label>
+                    <label>Enter Text</label>
                     <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
-                    <!-- <button type="button" name="button" class="mic record-btn" onclick="record()"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                                    <path fill="white"
-                                        d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                                </svg>
-                            </button> -->
-                    <button type="button" class="record-btn" id="micButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                            <path fill="white"
-                                d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                        </svg>
-                    </button>
-                    <button type="button" class="record-btn--stop" id="stopButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                            <path fill="white"
-                                d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                        </svg>
-                    </button>   
                     <button type="submit" class="submit btn-submit">Submit</button>
 
                 </form>
@@ -55,7 +37,7 @@
 
                         </div>
                     </div>
-                    <div id="list" style="list-style: none;">
+                    <div style="list-style: none;">
                         <p>Keywords in sentence: </p>
 
                         <div class="text-box" id="list">
@@ -71,7 +53,7 @@
             <div class="px-4 py-5">
 
                 <div style="text-align:center"> &nbsp&nbsp
-                    <button class="submit btn-vid" id="btn-animate" onclick="playPause()">
+                    <button class="submit btn-vid" onclick="playPause()">
                         Play Animation
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
                             <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
@@ -84,7 +66,7 @@
                           <button onclick="makeNormal()">Normal</button>-->
 
 
-                    <video id="videoPlayer" src="" width="500" height="350" preload="auto" autoplay>
+                    <video id="videoPlayer" src="" width="600" height="350" preload="auto" autoplay>
                         <source src="" type="video/mp4">
                         Your browser does not support HTML5 video.
                     </video>
@@ -96,37 +78,33 @@
 
 
 
-    <!-- <script src="../static/assets/js/main.js"></script> -->
+    <script src="../static/assets/js/main.js"></script>
     <script>
-        window.onload = function() {
-    const micButton = document.getElementById('micButton');
-    let isRecording = false;
-    let recognition; // Declare the recognition object here
 
-    micButton.addEventListener('click', () => {
-        if (!isRecording) {
-            micButton.style.backgroundColor = "red";
-            recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-            recognition.continuous = true;
-            recognition.interimResults = true;
+        const micButton = document.getElementById('micButton');
+        const stopButton = document.getElementById('stopButton');
+        stopButton.style.display == "none";
+        let isRecording = false;
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+        recognition.continuous = true;
+        recognition.interimResults = true;
 
-            recognition.onresult = function (event) {
-                console.log(event);
-                document.getElementById('speechToText').value = event.results[0][0].transcript;
-            }
-
-            recognition.onend = function () {
+        micButton.addEventListener('click', () => {
+            if (!isRecording) {
+                micButton.style.backgroundColor = "red";
+                recognition.start();
+            } else {
                 micButton.style.backgroundColor = "#0466c8e6";
-            };
+                recognition.stop();
+            }
+            isRecording = !isRecording;
+        });
 
-            recognition.start();
-        } else {
-            micButton.style.backgroundColor = "#0466c8e6";
-            recognition.stop();
+        recognition.onresult = function (event) {
+            console.log(event)
+            document.getElementById('speechToText').value = event.results[0][0].transcript;
         }
-        isRecording = !isRecording;
-    });
-};
+        recognition.start();
 
         //webkitSpeechRecognition api for speech to text conversion
         // function record() {
@@ -141,13 +119,13 @@
         // }
 
         function play() {
-            
             var videoSource = new Array();
             var videos = document.getElementById("list").getElementsByTagName("span");
             var j;
             for (j = 0; j < videos.length; j++) {
                 videoSource[j] = "../static/assets/ASL/" + videos[j].textContent + ".mp4";
-                console.log(videoSource);
+                videoSource[j] = "../static/assets/NSL/" + videos[j].textContent + ".mp4";
+
             }
 
             var i = 0; // define i
@@ -157,16 +135,16 @@
                 document.getElementById("list").getElementsByTagName("span")[videoNum].style.color = "#09edc7";
                 document.getElementById("list").getElementsByTagName("span")[videoNum].style.fontSize = "xx-large";
                 document.getElementById("videoPlayer").setAttribute("src", videoSource[videoNum]);
-                console.log(videoPlayer);
                 document.getElementById("videoPlayer").load();
                 document.getElementById("videoPlayer").play();
+
             }
             document.getElementById('videoPlayer').addEventListener('ended', myHandler, false);
             document.getElementById("list").getElementsByTagName("span")[0].style.color = "#09edc7";
             document.getElementById("list").getElementsByTagName("span")[0].style.fontSize = "xx-large";
 
             videoPlay(0); // play the video
-            
+
             function myHandler() {
                 document.getElementById("list").getElementsByTagName("span")[i].style.color = "#feda6a";
                 document.getElementById("list").getElementsByTagName("span")[i].style.fontSize = "20px";
@@ -197,7 +175,6 @@
         function playPause() {
             if (document.getElementById("videoPlayer").paused) {
                 play();
-                
             }
             else {
                 document.getElementById("videoPlayer").pause();

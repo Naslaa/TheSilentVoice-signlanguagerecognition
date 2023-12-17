@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import time
 
-model = load_model('./model/ASLmodel.h5')
+model = load_model('signlanguage/model/ASLmodel.h5')
 
 # Initialize MediaPipe
 mphands = mp.solutions.hands
