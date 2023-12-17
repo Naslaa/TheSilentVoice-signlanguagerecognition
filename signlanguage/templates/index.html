@@ -113,79 +113,51 @@
 
   <!-- NSL  -->
   <section id="nsl" class="main-section">
-    <div class="py-5  ">
-      <div class="circle"></div>
-      <div class="circle1"></div>
+    <div class="py-5">
       <div class="container">
         <div class="row">
-          <div class="col-md-6 pe-md-5  d-flex flex-column justify-content-center ">
+          <div class="col-md-6 mt-md-0 d-flex flex-column align-items-center ">
+            <div class="media">
+              <img src="static/assets/img/nsl.png">
             <div class="section-title">
               <h2 class="text-center">Text to Sign Language(NSL)</h2>
               <span></span>
             </div>
-
-            <div class="mt-5 inner-section  d-flex flex-column align-items-center">
-              <div class="row">
-                <label for="text-input">Enter the Text or <span>Record</span> to Translate:</label>
-                <div class="text-center">
-                  <!-- changed -->
-                  <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
-                  <button type="button" name="button" class="mic" onclick="record()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                      <path fill="white"
-                        d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                    </svg>
-                  </button>
-
-                </div>
+            <!-- <form action="" method="post" align="left"> -->
+              {% csrf_token %}
+              <div class="mt-5 inner-section d-flex flex-column align-items-center">
+                <a href="/nanimation" class="btn-translate">Translate</a>
               </div>
-              <!-- changed -->
-              <input type="submit" class="submit" name="submit">
+            <!-- </form> -->
+          </div>
+          </div>
+          <div class="col-md-6 mt-md-0 d-flex flex-column align-items-center ">
+            <div class="media">
+              <img src="static/assets/img/img-01.png" class="img-fluid" alt="">
             </div>
-          </div>
-
-
-          <div class="col-md-6 mt-5 mt-md-0">
-            <img src="static/assets/img/nsl.png" class="img-fluid" alt="">
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-    </div>
-    <div class="py-5 pt-0">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 order-2 order-md-1 mt-5 mt-md-0">
-            <img src="static/assets/img/img-02.png" class="img-fluid" alt="">
-          </div>
-          <div class="col-md-6  d-flex flex-column justify-content-center order-1 order-md-2">
             <div class="section-title">
               <h2 class="text-center">Sign Language To Text(NSL)</h2>
               <span></span>
             </div>
 
             <div class="mt-5 inner-section  d-flex flex-column align-items-center">
-              <div class="img-inner d-flex justify-content-center mb-4">
+              <!-- <div class="img-inner d-flex justify-content-center mb-4">
                 <img src="static/assets/img/r.png" alt="" srcset="">
                 <img src="static/assets/img/e.png" alt="" srcset="">
                 <img src="static/assets/img/c.png" alt="" srcset="">
                 <img src="static/assets/img/o.png" alt="" srcset="">
                 <img src="static/assets/img/r.png" alt="" srcset="">
                 <img src="static/assets/img/d.png" alt="" srcset="">
-              </div>
-              <a href="/camera-feed" class="btn-translate">Record Video</a>
-            </div>
+              </div> -->
+              <a href="/ncamera-feed" class="btn-translate">Translate</a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- MODAL WINDOW  asl-->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content p-3">
         <div class=" text-end">
@@ -211,7 +183,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <footer></footer>
 
   <script src="../static/assets/js/main.js"></script>
