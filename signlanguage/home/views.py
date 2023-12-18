@@ -153,7 +153,7 @@ def get_video_for_letter(letter):
     # Replace this function with code to retrieve the video for a Nepali letter from the database
     # This function should return the path or URL of the video file corresponding to the letter
     # Example:
-    video_path = f'static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
+    video_path = f'C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
     return video_path
 
 def nanimation_view(request):
@@ -169,7 +169,7 @@ def nanimation_view(request):
             video_path = get_video_for_letter(letter)
             videos.append(video_path)
 
-        return render(request, 'nanimation.html', {'videos': videos, 'text': text})
+        return render(request, 'nanimation.html', {'videos': videos, 'text': text, 'letters':letters})
     else:
         return render(request, 'nanimation.html')
 

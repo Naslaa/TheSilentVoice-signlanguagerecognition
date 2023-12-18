@@ -13,7 +13,7 @@
     <div class="container  my-5 card">
         <div class="row">
             <div class="py-large col-lg-6 inner-section  pl-4 pr-5 ">
-                <a class="inner-link" href="    "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                <a class="inner-link" href="http://127.0.0.1:8000/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
@@ -37,13 +37,16 @@
 
                         </div>
                     </div>
-                    <div style="list-style: none;">
+                    <div d="list" style="list-style: none;">
                         <p>Keywords in sentence: </p>
 
                         <div class="text-box" id="list">
-                            {% for word in words %}
-                            <span id="{{ i }}" style="margin-right: 8px">{{ word }}</span>
+                            {% for char in text %}
+                            <span class="text-input">{{ char }}</span>
                             {% endfor %}
+                            <!-- {% for letter in letters %}
+                            <span id="{{ i }}" style="margin-right: 8px">{{ letter }}</span>
+                            {% endfor %} -->
                         </div>
                     </div>
             </div>
@@ -81,30 +84,30 @@
     <script src="../static/assets/js/main.js"></script>
     <script>
 
-        const micButton = document.getElementById('micButton');
-        const stopButton = document.getElementById('stopButton');
-        stopButton.style.display == "none";
-        let isRecording = false;
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-        recognition.continuous = true;
-        recognition.interimResults = true;
+        // const micButton = document.getElementById('micButton');
+        // const stopButton = document.getElementById('stopButton');
+        // stopButton.style.display == "none";
+        // let isRecording = false;
+        // const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+        // recognition.continuous = true;
+        // recognition.interimResults = true;
 
-        micButton.addEventListener('click', () => {
-            if (!isRecording) {
-                micButton.style.backgroundColor = "red";
-                recognition.start();
-            } else {
-                micButton.style.backgroundColor = "#0466c8e6";
-                recognition.stop();
-            }
-            isRecording = !isRecording;
-        });
+        // micButton.addEventListener('click', () => {
+        //     if (!isRecording) {
+        //         micButton.style.backgroundColor = "red";
+        //         recognition.start();
+        //     } else {
+        //         micButton.style.backgroundColor = "#0466c8e6";
+        //         recognition.stop();
+        //     }
+        //     isRecording = !isRecording;
+        // });
 
-        recognition.onresult = function (event) {
-            console.log(event)
-            document.getElementById('speechToText').value = event.results[0][0].transcript;
-        }
-        recognition.start();
+        // recognition.onresult = function (event) {
+        //     console.log(event)
+        //     document.getElementById('speechToText').value = event.results[0][0].transcript;
+        // }
+        // recognition.start();
 
         //webkitSpeechRecognition api for speech to text conversion
         // function record() {
@@ -123,8 +126,9 @@
             var videos = document.getElementById("list").getElementsByTagName("span");
             var j;
             for (j = 0; j < videos.length; j++) {
-                videoSource[j] = "../static/assets/ASL/" + videos[j].textContent + ".mp4";
+                
                 videoSource[j] = "../static/assets/NSL/" + videos[j].textContent + ".mp4";
+                console.log(videoSource);
 
             }
 
