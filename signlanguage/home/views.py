@@ -175,12 +175,16 @@ def nanimation_view(request):
 
 
 def camera_feed(request):
-	result= subprocess.run(['python', './camera.py'], capture_output=True, text=True)
+	result= subprocess.run(['python', './acamera.py'], capture_output=True, text=True)
 	return render(request, 'camera-feed.html',{'output':result.stdout})
 
+def ncamera_feed(request):
+    result = subprocess.run(['python', './ncamera.py'], capture_output=True, text=True)
+    output = result.stdout
+    return render(request, 'ncamera-feed.html', {'output': output})
 
 def index(request):
     return render(request, 'index.html')
 
-def ncamera_feed(request):
-	return render(request, 'ncamera-feed.html')
+# def ncamera_feed(request):
+# 	return render(request, 'ncamera-feed.html')

@@ -29,12 +29,12 @@ class Application:
         self.vs = cv2.VideoCapture(0)
         self.current_image = None
         self.current_image2 = None
-        self.json_file = open("model\model_new.json", "r")
-        self.model_json = self.json_file.read()
-        self.json_file.close()
+        # # self.json_file = open("model\model_new.json", "r")
+        # self.model_json = self.json_file.read()
+        # self.json_file.close()
 
-        self.loaded_model = model_from_json(self.model_json)
-        self.loaded_model.load_weights("model\model_new.h5")
+        # self.loaded_model = model_from_json(self.model_json)
+        self.loaded_model.load_weights("C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/ASLmodel.h5")
 
         # self.json_file_dru = open("model\model-bw_dru.json" , "r")
         # self.model_json_dru = self.json_file_dru.read()
