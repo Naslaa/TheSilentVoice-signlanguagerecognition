@@ -1,6 +1,5 @@
 from django.shortcuts import render
-
-# Create your views here.
+from tensorflow.keras.models import load_model
 
 
 import cv2
@@ -174,14 +173,194 @@ def nanimation_view(request):
         return render(request, 'nanimation.html')
 
 
+# def camera_feed(request):
+# 	result= subprocess.run(['python', './bwcam.py'], capture_output=True, text=True)
+# 	return render(request, 'camera-feed.html',{'output':result.stdout})
+
+# def ncamera_feed(request):
+#     result = subprocess.run(['python', './nbwcam.py'], capture_output=True, text=True)
+#     output = result.stdout
+#     return render(request, 'ncamera-feed.html', {'output': output})
+model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSASLmodel.h5')  # Replace with the path to your model
+
+# Initialize MediaPipe Hands
+mp_hands = mp.solutions.hands
+hands = mp_hands.Hands()
+mp_drawing = mp.solutions.drawing_utils 
+def generate_frames():
+    cap = cv2.VideoCapture(0)  # Open the webcam
+
+    prediction = None
+    confidence = None
+    gesture_text = "" 
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        frame = cv2.flip(frame, 1)
+        image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = hands.process(image_rgb)
+
+        if results.multi_hand_landmarks:
+            for hand_landmarks in results.multi_hand_landmarks:
+                # Extract hand landmarks
+                h, w, c = frame.shape
+                x_max, y_max, x_min, y_min = 0, 0, w, h
+                for lm in hand_landmarks.landmark:
+                    x, y = int(lm.x * w), int(lm.y * h)
+                    if x > x_max:
+                        x_max = x
+                    if x < x_min:
+                        x_min = x
+                    if y > y_max:
+                        y_max = y
+                    if y < y_min:
+                        y_min = y
+
+                # Draw a rectangle around the detected hand region
+                cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
+
+                # Crop the hand region for prediction
+                cropped_hand = frame[y_min:y_max, x_min:x_max]
+                cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+                cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
+                cropped_hand_gray = cropped_hand_gray / 255.0
+                cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+
+                # Make a prediction with the CNN model when space is pressed
+                # if cv2.waitKey(1) & 0xFF == ord(' '):
+                prediction = model.predict(cropped_hand_gray)
+                predicted_class = np.argmax(prediction)
+                confidence = prediction[0][predicted_class]
+
+                    # Get the predicted gesture label
+                labels = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "del", "nothing", "space"]
+                gesture_text = labels[predicted_class]
+
+        if gesture_text is not None and confidence is not None:
+            cv2.putText(frame, f'{gesture_text} ({confidence:.2f})',
+                        (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+        _, jpeg = cv2.imencode('.jpg', frame)
+        frame_bytes = jpeg.tobytes()
+
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+    cap.release()
+
 def camera_feed(request):
-	result= subprocess.run(['python', './acamera.py'], capture_output=True, text=True)
-	return render(request, 'camera-feed.html',{'output':result.stdout})
+    return StreamingHttpResponse(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
+
+def camera_view(request):
+    return render(request, 'camera-feed.html')
+
+from PIL import Image, ImageDraw, ImageFont
+font_path = 'c:/Windows/Fonts/kokila.ttf'
+nmodel = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSNSLmodel.h5')  # Replace with the path to your model
+
+# Initialize MediaPipe Hands
+mp_hands = mp.solutions.hands
+hands = mp_hands.Hands()
+mp_drawing = mp.solutions.drawing_utils 
+def ngenerate_frames():
+    cap = cv2.VideoCapture(0)  # Open the webcam
+
+    prediction = None
+    confidence = None
+    gesture_text = "" 
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        frame = cv2.flip(frame, 1)
+        image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        results = hands.process(image_rgb)
+
+        if results.multi_hand_landmarks:
+            for hand_landmarks in results.multi_hand_landmarks:
+                # Extract hand landmarks
+                h, w, c = frame.shape
+                x_max, y_max, x_min, y_min = 0, 0, w, h
+                for lm in hand_landmarks.landmark:
+                    x, y = int(lm.x * w), int(lm.y * h)
+                    if x > x_max:
+                        x_max = x
+                    if x < x_min:
+                        x_min = x
+                    if y > y_max:
+                        y_max = y
+                    if y < y_min:
+                        y_min = y
+
+                # Draw a rectangle around the detected hand region
+                cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
+
+                # Crop the hand region for prediction
+                cropped_hand = frame[y_min:y_max, x_min:x_max]
+                cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+                cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
+                cropped_hand_gray = cropped_hand_gray / 255.0
+                cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+
+                # Make a prediction with the CNN model when space is pressed
+                # if cv2.waitKey(1) & 0xFF == ord(' '):
+                prediction = nmodel.predict(cropped_hand_gray)
+                predicted_class = np.argmax(prediction)
+                confidence = prediction[0][predicted_class]
+
+                    # Get the predicted gesture label
+                labels = ["क","क्ष", "ख", "ग", "घ", "ङ", "च", "छ", "ज","ज्ञ", "झ", "ञ", "ट", "ठ", "ड", "ढ", "ण", "त", "त्र", "थ", "द", "ध", "न", "प", "फ", "ब", "भ", "म", "य", "र", "ल", "व", "श", "ष", "स", "ह"]
+                gesture_text = labels[predicted_class]
+
+        # if gesture_text is not None and confidence is not None:
+        #     cv2.putText(frame, f'{gesture_text} ({confidence:.2f})',
+        #                 (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+       
+        pil_image = Image.fromarray(frame)
+        draw = ImageDraw.Draw(pil_image)
+        text_font = ImageFont.truetype(font_path, 30)
+
+        if gesture_text is not None and confidence is not None:
+            text_to_display = f'{gesture_text} ({confidence:.2f})'
+        else:
+            text_to_display = "No prediction available"  # Placeholder text if either is None
+
+        draw.text((20, 40), text_to_display, font=text_font, fill=(255, 255, 255))
+        frame = np.array(pil_image)
+
+
+        _, jpeg = cv2.imencode('.jpg', frame)
+        frame_bytes = jpeg.tobytes()
+
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+    cap.release()
 
 def ncamera_feed(request):
-    result = subprocess.run(['python', './ncamera.py'], capture_output=True, text=True)
-    output = result.stdout
-    return render(request, 'ncamera-feed.html', {'output': output})
+    return StreamingHttpResponse(ngenerate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
+
+def ncamera_view(request):
+    return render(request, 'ncamera-feed.html')
+
+# def perform_prediction(request):
+#     # Add code to perform the prediction using your model
+#     # Example placeholder response (modify as per your actual prediction logic)
+#     predicted_character = "A"
+#     predicted_word = "Apple"
+#     predicted_sentence = "This is a sample sentence."
+
+#     # Return the predicted data as a JSON response
+#     return JsonResponse({
+#         'character': predicted_character,
+#         'word': predicted_word,
+#         'sentence': predicted_sentence,
+#     })
 
 def index(request):
     return render(request, 'index.html')

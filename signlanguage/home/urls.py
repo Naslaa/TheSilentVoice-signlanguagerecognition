@@ -23,7 +23,13 @@ urlpatterns = [
      path('', views.index, name='home'),
     #  path('video/', views.video_feed, name='video'),
      path('camera-feed/', views.camera_feed, name='camera_feed'),
+     path('camera-view/', views.camera_view, name='camera_view'),
+    #  path('prediction/', views.perform_prediction, name='perform_prediction'),
+
+
      path('ncamera-feed/', views.ncamera_feed, name='ncamera_feed'),
+     path('ncamera-view/', views.ncamera_view, name='ncamera_feed'),
+
 
  
     #  path('detect-sign-language/', views.detect_sign_language, name='detect_sign_language'),
