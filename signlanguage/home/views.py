@@ -222,10 +222,17 @@ def generate_frames():
 
                 # Crop the hand region for prediction
                 cropped_hand = frame[y_min:y_max, x_min:x_max]
-                cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
-                cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
-                cropped_hand_gray = cropped_hand_gray / 255.0
-                cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+
+                # Check if cropped_hand is empty or None
+                if cropped_hand is not None and cropped_hand.size != 0:
+                    cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+                    cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
+                    cropped_hand_gray = cropped_hand_gray / 255.0
+                    cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+                else:
+                    print("Error: The cropped_hand image is empty or None.")
+                    # Handle the error condition appropriately, e.g., by assigning a default value or raising an exception
+
 
                 # Make a prediction with the CNN model when space is pressed
                 # if cv2.waitKey(1) & 0xFF == ord(' '):
