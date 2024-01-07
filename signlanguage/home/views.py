@@ -31,9 +31,7 @@ from django.http import StreamingHttpResponse
 import time
 from django.views.decorators.csrf import csrf_exempt
 import cv2
-import base64
-from io import BytesIO
-import subprocess
+
 
 
 # In your Django app's views.py
@@ -41,10 +39,10 @@ from django.shortcuts import render
 from django.http import StreamingHttpResponse
 from django.views.decorators import gzip
 import cv2
-import operator
+
 from string import ascii_uppercase
-from spellchecker import SpellChecker
-from keras.models import model_from_json
+
+
 
 
 # 
@@ -181,7 +179,7 @@ def nanimation_view(request):
 #     result = subprocess.run(['python', './nbwcam.py'], capture_output=True, text=True)
 #     output = result.stdout
 #     return render(request, 'ncamera-feed.html', {'output': output})
-model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSASLmodel.h5')  # Replace with the path to your model
+model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/20GSASLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -259,7 +257,7 @@ def camera_view(request):
 
 from PIL import Image, ImageDraw, ImageFont
 font_path = 'c:/Windows/Fonts/kokila.ttf'
-nmodel = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSNSLmodel.h5')  # Replace with the path to your model
+nmodel = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/d7NSLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
