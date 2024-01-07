@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="cam-feed" id="word">
+                {% comment %} <div class="cam-feed" id="word">
                     <p>Word:</p>
                     <div class="text-box">
                         <span class="text-input" id="word-value"></span>
@@ -44,8 +44,8 @@
                     <div class="text-box">
                         <span class="text-input" id="sentence-value"></span>
                     </div>
-                </div>
-
+                </div> {% endcomment %}
+                
                 <!-- <div class="cam-feed" id="suggestions">
                     <p class="mb-3">Suggestions:</p>
                     <ul style="list-style-type: none; ">
@@ -85,17 +85,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         var charactersArray = [];
-    
+        const textInput = document.getElementById('character-value').textContent;
         $(document).ready(function () {
             $('#videoFeed').attr('src', '/camera-feed/'); // Set the source to your Django camera feed endpoint
     
             $(document).keypress(function (e) {
-                if (e.which === 32) { // 32 is the spacebar key code
+                if (e.which === 32) {  // Spacebar key code
                     // AJAX request to trigger prediction from Django backend
                     $.ajax({
-                        url: '/perform-prediction/', // Replace with your Django view URL for prediction
+                        url: '/perform-prediction/',
                         type: 'GET',
                         success: function (data) {
+                            // Handle the response data
                             if (data.character === "del") {
                                 // Remove the last character
                                 charactersArray.pop();
@@ -104,19 +105,20 @@
                             } else if (data.character === "space") {
                                 charactersArray.push(' ');
                             }
-    
+            
+                            // Update UI elements
                             $('#character-value').text(data.character);
-    
+            
                             // Check if charactersArray is defined before using join
                             if (charactersArray) {
                                 $('#word-value').text(charactersArray.join(','));
                                 $('#sentence-value').text(charactersArray.join(''));
                             }
-    
+            
                             // Array processing code for splitting into words
                             var wordsArray = [];
                             var currentWord = "";
-    
+            
                             for (var i = 0; i < charactersArray.length; i++) {
                                 if (charactersArray[i] !== ' ') {
                                     currentWord += charactersArray[i];
@@ -125,22 +127,28 @@
                                     currentWord = "";
                                 }
                             }
-    
+            
                             // Add the last word if not empty
                             if (currentWord !== "") {
                                 wordsArray.push(currentWord);
                             }
-                            console.log(wordsArray);
+            
+                            // Text-to-speech code
+                            if ('speechSynthesis' in window) {
+                                const synthesis = window.speechSynthesis;
+                                const utterance = new SpeechSynthesisUtterance(data.character);
+                                synthesis.speak(utterance);
+                            }
                         },
                         error: function (error) {
                             console.log('Error:', error);
                         }
                     });
-                    
-                    
                 }
             });
+            
         });
+
     </script>
     
 </body>

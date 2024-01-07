@@ -64,7 +64,7 @@ from django.contrib.staticfiles import finders
 from sklearn.feature_extraction.text import CountVectorizer
 
 def find_video(word):
-    path = f"C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
+    path = f"E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
     return os.path.isfile(path)
 
 # Function to analyze text using Bag of Words model
@@ -150,7 +150,7 @@ def get_video_for_letter(letter):
     # Replace this function with code to retrieve the video for a Nepali letter from the database
     # This function should return the path or URL of the video file corresponding to the letter
     # Example:
-    video_path = f'C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
+    video_path = f'E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
     return video_path
 
 def nanimation_view(request):
@@ -186,7 +186,7 @@ confidence = None
 ngesture_text=""
 nconfidence = None
 
-model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/20GSASLmodel.h5')  # Replace with the path to your model
+model = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSASLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -273,7 +273,7 @@ from PIL import Image, ImageDraw, ImageFont
 font_path = 'c:/Windows/Fonts/kokila.ttf'
 
 # font_path='C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/kokila.ttf'
-nmodel = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/d7NSLmodel.h5')  # Replace with the path to your model
+nmodel = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSNSLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
