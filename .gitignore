@@ -2,3 +2,4 @@
 signlanguage/model/model_new.h5
 signlanguage/model/ASLmodel.h5
 *.h5
+signlanguage/home/__pycache__/views.cpython-311.pyc

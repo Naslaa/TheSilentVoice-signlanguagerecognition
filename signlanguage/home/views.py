@@ -186,7 +186,7 @@ confidence = None
 ngesture_text=""
 nconfidence = None
 
-model = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSASLmodel.h5')  # Replace with the path to your model
+model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/20GSASLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -270,10 +270,10 @@ def camera_view(request):
     return render(request, 'camera-feed.html')
 
 from PIL import Image, ImageDraw, ImageFont
-# font_path = 'c:/Windows/Fonts/kokila.ttf'
+font_path = 'c:/Windows/Fonts/kokila.ttf'
 
-font_path='C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/kokila.ttf'
-nmodel = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSNSLmodel.h5')  # Replace with the path to your model
+# font_path='C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/kokila.ttf'
+nmodel = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/d7NSLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -284,7 +284,6 @@ def ngenerate_frames():
     cap = cv2.VideoCapture(0)  # Open the webcam
 
     prediction = None
-
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -313,12 +312,17 @@ def ngenerate_frames():
                 # Draw a rectangle around the detected hand region
                 cv2.rectangle(frame, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
 
-                # Crop the hand region for prediction
+# Crop the hand region for prediction
                 cropped_hand = frame[y_min:y_max, x_min:x_max]
-                cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
-                cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
-                cropped_hand_gray = cropped_hand_gray / 255.0
-                cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+
+                # Check if cropped_hand is empty or None
+                if cropped_hand is not None and cropped_hand.size != 0:
+                    cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+                    cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
+                    cropped_hand_gray = cropped_hand_gray / 255.0
+                    cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+                else:
+                    print("Error: The cropped_hand image is empty or None.")
 
                 # Make a prediction with the CNN model when space is pressed
                 # if cv2.waitKey(1) & 0xFF == ord(' '):
@@ -334,14 +338,14 @@ def ngenerate_frames():
         #     cv2.putText(frame, f'{gesture_text} ({confidence:.2f})',
         #                 (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
        
-            pil_image = Image.fromarray(frame)
-            draw = ImageDraw.Draw(pil_image)
-            text_font = ImageFont.truetype(font_path, 30)
-
         if ngesture_text is not None and nconfidence is not None:
             text_to_display = f'{ngesture_text} ({nconfidence:.2f})'
         else:
             text_to_display = "No prediction available"  # Placeholder text if either is None
+        pil_image = Image.fromarray(frame)
+        draw = ImageDraw.Draw(pil_image)
+        text_font = ImageFont.truetype(font_path, 30)
+
 
         draw.text((20, 40), text_to_display, font=text_font, fill=(255, 255, 255))
         frame = np.array(pil_image)
@@ -390,5 +394,3 @@ def nperform_prediction(request):
 def index(request):
     return render(request, 'index.html')
 
-# def ncamera_feed(request):
-# 	return render(request, 'ncamera-feed.html')
