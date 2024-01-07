@@ -24,6 +24,8 @@ urlpatterns = [
     #  path('video/', views.video_feed, name='video'),
      path('camera-feed/', views.camera_feed, name='camera_feed'),
      path('camera-view/', views.camera_view, name='camera_view'),
+     path('perform-prediction/', views.perform_prediction, name='perform_prediction'),
+
     #  path('prediction/', views.perform_prediction, name='perform_prediction'),
 
 

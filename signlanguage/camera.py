@@ -8,7 +8,7 @@ import numpy as np
 import time
 import pandas as pd
 
-model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/ASLmodel.h5')
+model = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/ASLmodel.h5')
 
 mphands = mp.solutions.hands
 hands = mphands.Hands()

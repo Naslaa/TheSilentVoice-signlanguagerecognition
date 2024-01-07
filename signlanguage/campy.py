@@ -75,11 +75,11 @@ class ConvNet(nn.Module):
             
         return output
             
-checkpoint=torch.load('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/best_checkpoint.model')
+checkpoint=torch.load('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/best_checkpoint.model')
 model=ConvNet(num_classes=29)
 model.load_state_dict(checkpoint)
 model.eval()
-#model = torch.load('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/pytorch_model.model')  # Replace with the path to your PyTorch model
+#model = torch.load('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/pytorch_model.model')  # Replace with the path to your PyTorch model
 
 # Set the model to evaluation mode
 model.eval()

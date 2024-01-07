@@ -5,8 +5,8 @@ from tensorflow.keras.models import load_model
 from PIL import Image, ImageDraw, ImageFont
 
 # Load the trained CNN model
-model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSNSLmodel.h5')  # Replace with the path to your model
-font_path = 'c:/Windows/Fonts/kokila.ttf'
+model = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSNSLmodel.h5')  # Replace with the path to your model
+font_path = 'C:/Windows/Fonts/kokila.ttf'
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
