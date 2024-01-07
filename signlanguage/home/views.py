@@ -64,7 +64,7 @@ from django.contrib.staticfiles import finders
 from sklearn.feature_extraction.text import CountVectorizer
 
 def find_video(word):
-    path = f"C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
+    path = f"E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
     return os.path.isfile(path)
 
 # Function to analyze text using Bag of Words model
@@ -150,7 +150,7 @@ def get_video_for_letter(letter):
     # Replace this function with code to retrieve the video for a Nepali letter from the database
     # This function should return the path or URL of the video file corresponding to the letter
     # Example:
-    video_path = f'C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
+    video_path = f'E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
     return video_path
 
 def nanimation_view(request):
@@ -186,12 +186,9 @@ mp_hands = mp.solutions.hands
 hands = mp_hands.Hands()
 mp_drawing = mp.solutions.drawing_utils 
 def generate_frames():
+    global gesture_text, confidence
     cap = cv2.VideoCapture(0)  # Open the webcam
-
     prediction = None
-    confidence = None
-    gesture_text = "" 
-
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -346,19 +343,20 @@ def ncamera_feed(request):
 def ncamera_view(request):
     return render(request, 'ncamera-feed.html')
 
-# def perform_prediction(request):
-#     # Add code to perform the prediction using your model
-#     # Example placeholder response (modify as per your actual prediction logic)
-#     predicted_character = "A"
-#     predicted_word = "Apple"
-#     predicted_sentence = "This is a sample sentence."
+def perform_prediction(request):
+    global gesture_text
+    # Add code to perform the prediction using your model
+    # Example placeholder response (modify as per your actual prediction logic)
+    predicted_character = gesture_text
+    predicted_word = "Apple"
+    predicted_sentence = "This is a sample sentence."
 
-#     # Return the predicted data as a JSON response
-#     return JsonResponse({
-#         'character': predicted_character,
-#         'word': predicted_word,
-#         'sentence': predicted_sentence,
-#     })
+    # Return the predicted data as a JSON response
+    return JsonResponse({
+        'character': predicted_character,
+        'word': predicted_word,
+        'sentence': predicted_sentence,
+    },content_type='application/json')
 
 def index(request):
     return render(request, 'index.html')
