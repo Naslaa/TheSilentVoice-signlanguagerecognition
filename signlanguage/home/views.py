@@ -31,9 +31,7 @@ from django.http import StreamingHttpResponse
 import time
 from django.views.decorators.csrf import csrf_exempt
 import cv2
-import base64
-from io import BytesIO
-import subprocess
+
 
 
 # In your Django app's views.py
@@ -41,10 +39,10 @@ from django.shortcuts import render
 from django.http import StreamingHttpResponse
 from django.views.decorators import gzip
 import cv2
-import operator
+
 from string import ascii_uppercase
-from spellchecker import SpellChecker
-from keras.models import model_from_json
+
+
 
 
 # 
@@ -66,7 +64,7 @@ from django.contrib.staticfiles import finders
 from sklearn.feature_extraction.text import CountVectorizer
 
 def find_video(word):
-    path = f"E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
+    path = f"C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
     return os.path.isfile(path)
 
 # Function to analyze text using Bag of Words model
@@ -152,7 +150,7 @@ def get_video_for_letter(letter):
     # Replace this function with code to retrieve the video for a Nepali letter from the database
     # This function should return the path or URL of the video file corresponding to the letter
     # Example:
-    video_path = f'E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
+    video_path = f'C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
     return video_path
 
 def nanimation_view(request):
@@ -198,6 +196,9 @@ def generate_frames():
     global gesture_text, confidence
     cap = cv2.VideoCapture(0)  # Open the webcam
     prediction = None
+
+    confidence = None
+    gesture_text = ""
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -228,10 +229,17 @@ def generate_frames():
 
                 # Crop the hand region for prediction
                 cropped_hand = frame[y_min:y_max, x_min:x_max]
-                cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
-                cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
-                cropped_hand_gray = cropped_hand_gray / 255.0
-                cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+
+                # Check if cropped_hand is empty or None
+                if cropped_hand is not None and cropped_hand.size != 0:
+                    cropped_hand_gray = cv2.cvtColor(cropped_hand, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+                    cropped_hand_gray = cv2.resize(cropped_hand_gray, (100, 100))
+                    cropped_hand_gray = cropped_hand_gray / 255.0
+                    cropped_hand_gray = np.expand_dims(cropped_hand_gray, axis=0)
+                else:
+                    print("Error: The cropped_hand image is empty or None.")
+                    # Handle the error condition appropriately, e.g., by assigning a default value or raising an exception
+
 
                 # Make a prediction with the CNN model when space is pressed
                 # if cv2.waitKey(1) & 0xFF == ord(' '):
