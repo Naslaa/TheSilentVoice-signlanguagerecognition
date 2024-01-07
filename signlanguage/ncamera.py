@@ -7,7 +7,8 @@ import time
 
 # Load the trained CNN model
 model = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/NSLmodel.h5')
-font_path = 'C:/Windows/Fonts/kokila.ttf'
+# font_path = 'C:/Windows/Fonts/kokila.ttf'
+font_path='C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/kokila.ttf'
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands

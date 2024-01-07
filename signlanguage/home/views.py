@@ -185,6 +185,8 @@ def nanimation_view(request):
 # Shared variables
 gesture_text = ""
 confidence = None
+ngesture_text=""
+nconfidence = None
 
 model = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSASLmodel.h5')  # Replace with the path to your model
 
@@ -260,7 +262,9 @@ def camera_view(request):
     return render(request, 'camera-feed.html')
 
 from PIL import Image, ImageDraw, ImageFont
-font_path = 'c:/Windows/Fonts/kokila.ttf'
+# font_path = 'c:/Windows/Fonts/kokila.ttf'
+
+font_path='C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/kokila.ttf'
 nmodel = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/GSNSLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
@@ -268,11 +272,10 @@ mp_hands = mp.solutions.hands
 hands = mp_hands.Hands()
 mp_drawing = mp.solutions.drawing_utils 
 def ngenerate_frames():
+    global ngesture_text, nconfidence
     cap = cv2.VideoCapture(0)  # Open the webcam
 
     prediction = None
-    confidence = None
-    gesture_text = "" 
 
     while cap.isOpened():
         ret, frame = cap.read()
@@ -313,22 +316,22 @@ def ngenerate_frames():
                 # if cv2.waitKey(1) & 0xFF == ord(' '):
                 prediction = nmodel.predict(cropped_hand_gray)
                 predicted_class = np.argmax(prediction)
-                confidence = prediction[0][predicted_class]
+                nconfidence = prediction[0][predicted_class]
 
                     # Get the predicted gesture label
                 labels = ["क","क्ष", "ख", "ग", "घ", "ङ", "च", "छ", "ज","ज्ञ", "झ", "ञ", "ट", "ठ", "ड", "ढ", "ण", "त", "त्र", "थ", "द", "ध", "न", "प", "फ", "ब", "भ", "म", "य", "र", "ल", "व", "श", "ष", "स", "ह"]
-                gesture_text = labels[predicted_class]
+                ngesture_text = labels[predicted_class]
 
         # if gesture_text is not None and confidence is not None:
         #     cv2.putText(frame, f'{gesture_text} ({confidence:.2f})',
         #                 (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
        
-        pil_image = Image.fromarray(frame)
-        draw = ImageDraw.Draw(pil_image)
-        text_font = ImageFont.truetype(font_path, 30)
+            pil_image = Image.fromarray(frame)
+            draw = ImageDraw.Draw(pil_image)
+            text_font = ImageFont.truetype(font_path, 30)
 
-        if gesture_text is not None and confidence is not None:
-            text_to_display = f'{gesture_text} ({confidence:.2f})'
+        if ngesture_text is not None and nconfidence is not None:
+            text_to_display = f'{ngesture_text} ({nconfidence:.2f})'
         else:
             text_to_display = "No prediction available"  # Placeholder text if either is None
 
@@ -363,6 +366,17 @@ def perform_prediction(request):
         'character': predicted_character,
         'word': predicted_word,
         'sentence': predicted_sentence,
+    },content_type='application/json')
+
+def nperform_prediction(request):
+    global ngesture_text
+    # Add code to perform the prediction using your model
+    # Example placeholder response (modify as per your actual prediction logic)
+    predicted_character = ngesture_text
+
+    # Return the predicted data as a JSON response
+    return JsonResponse({
+        'character': predicted_character,
     },content_type='application/json')
 
 def index(request):
