@@ -77,11 +77,7 @@
                             <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                         </svg>
                     </button>
-                    <!--  LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN ASHISH
-                    
-                          <button onclick="makeBig()">Big</button>
-                          <button onclick="makeSmall()">Small</button>
-                          <button onclick="makeNormal()">Normal</button>-->
+
 
 
                     <video id="videoPlayer" src="" width="500" height="350" preload="auto" autoplay>
@@ -128,17 +124,7 @@
     });
 };
 
-        //webkitSpeechRecognition api for speech to text conversion
-        // function record() {
-        //     var recognition = new webkitSpeechRecognition();
-        //     recognition.lang = 'en-IN';
 
-        // recognition.onresult = function (event) {
-        //     console.log(event)
-        //     document.getElementById('speechToText').value = event.results[0][0].transcript;
-        // }
-        // recognition.start();
-        // }
 
         function play() {
             
@@ -181,21 +167,7 @@
                 }
             }
         }
-        /* LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN
-        function makeBig() {
-            document.getElementById("videoPlayer").width = 560;
-            document.getElementById("videoPlayer").height = 360;
-        }
-    
-        function makeSmall() {
-            document.getElementById("videoPlayer").width = 320;
-            document.getElementById("videoPlayer").height = 180;
-        }
-    
-        function makeNormal() {
-            document.getElementById("videoPlayer").width = 420;
-            document.getElementById("videoPlayer").height =280;
-        }*/
+
         function playPause() {
             if (document.getElementById("videoPlayer").paused) {
                 play();
