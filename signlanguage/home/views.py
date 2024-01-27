@@ -5,16 +5,10 @@ import cv2
 
 from django.views.decorators import gzip
 
-import nltk
-import cv2
-
-import speech_recognition as sr
-
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
 import nltk
@@ -25,30 +19,17 @@ from django.contrib.staticfiles import finders
 import mediapipe as mp
 import numpy as np
 import tensorflow as tf
-from django.http import StreamingHttpResponse
 import time
 from django.views.decorators.csrf import csrf_exempt
 import cv2
 
 
 
-# In your Django app's views.py
-
-from django.http import StreamingHttpResponse
 from django.views.decorators import gzip
 import cv2
 
 from string import ascii_uppercase
-
-
-
-
-# 
-import cv2
 import numpy as np
-import base64
-
-
 
 from django.views import View
 from django.http import StreamingHttpResponse
@@ -62,7 +43,7 @@ from django.contrib.staticfiles import finders
 from sklearn.feature_extraction.text import CountVectorizer
 
 def find_video(word):
-    path = f"E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
+    path = "C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
     return os.path.isfile(path)
 
 # Function to analyze text using Bag of Words model
@@ -73,12 +54,8 @@ def analyze_text(sentence):
     # Using NLTK's Part-of-Speech tagging
     tagged = nltk.pos_tag(words)
 
-    # Lemmatizing and filtering words
-    # stop_words = set(nltk.corpus.stopwords.words('english'))
     stop_words = ['@', '#', "http", ":", "is", "the", "are", "am", "a", "it", "was", "were", "an", ",", ".", "?", "!", ";", "/"]
   
-
-    # Lemmatizing and filtering words, also removing stop words and punctuation
     lr = WordNetLemmatizer()
     filtered_text = []
     for w, p in tagged:
@@ -144,7 +121,7 @@ def custom_nepali_tokenizer(text):
 
 def get_video_for_letter(letter):
   
-    video_path = f'E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4'  # Adjust this path according to your database structure
+    video_path = "C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/NSL/{letter}.mp4"  # Adjust this path according to your database structure
     return video_path
 
 def nanimation_view(request):
@@ -163,22 +140,12 @@ def nanimation_view(request):
         return render(request, 'nanimation.html')
 
 
-# def camera_feed(request):
-# 	result= subprocess.run(['python', './bwcam.py'], capture_output=True, text=True)
-# 	return render(request, 'camera-feed.html',{'output':result.stdout})
-
-# def ncamera_feed(request):
-#     result = subprocess.run(['python', './nbwcam.py'], capture_output=True, text=True)
-#     output = result.stdout
-#     return render(request, 'ncamera-feed.html', {'output': output})
-
-# Shared variables
 gesture_text = ""
 confidence = None
 ngesture_text=""
 nconfidence = None
 
-model = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/20GSASLmodel.h5')  # Replace with the path to your model
+model = load_model('C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/20GSASLmodel.h5')  #Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -259,7 +226,7 @@ from PIL import Image, ImageDraw, ImageFont
 font_path = 'c:/Windows/Fonts/kokila.ttf'
 
 # font_path='C:/Users/Administrator/AppData/Local/Microsoft/Windows/Fonts/kokila.ttf'
-nmodel = load_model('E:/django/TheSilentVoice-signlanguagerecognition/signlanguage/model/d7NSLmodel.h5')  # Replace with the path to your model
+nmodel = load_model('model/d7NSLmodel.h5')  # Replace with the path to your model
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
