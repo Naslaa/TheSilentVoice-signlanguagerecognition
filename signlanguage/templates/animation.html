@@ -23,7 +23,7 @@
                     <h3>Text to Sign Language(ASL)</h3>
                     <span style="margin-left: 0;"></span>
                 </div>
-                <form class="mb-4" action="" method="post" align="left">
+                <form class="mb-4" action="" onsubmit="return validateForm()" method="post" align="left">
                     {% csrf_token %}
                     <label>Enter Text or Start Recording</label>
                     <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
@@ -89,12 +89,30 @@
 
         </div>
     </div>
-
-
-
-    <!-- <script src="../static/assets/js/main.js"></script> -->
     <script>
-        window.onload = function() {
+        User
+function validateForm() {
+            const alphabet = [
+            "क", "क्ष", "ख", "ग", "घ", "ङ", "च", "छ","ज", "ज्ञ","झ","ञ","ट","ठ","ड","ढ","ण","त","त्र","थ","द","ध","न","प","फ","ब","भ","म","य","र","ल","व","श","ष","स","ह"
+            ];
+            var ip = document.getElementById("speechToText").value;
+
+            if (ip === "") {
+                alert("Input Cannot be empty");
+                return false; // Prevent form submission
+            } else if (alphabet.includes(ip)) {
+                alert('Input is invalid!');
+                return false;
+            } 
+            else if (ip.length === 1) {
+                alert('Input is invalid!');
+                return false;
+            } 
+            else {
+                return true; // Continue with form submission
+            }
+        }
+    window.onload = function() {
     const micButton = document.getElementById('micButton');
     let isRecording = false;
     let recognition; // Declare the recognition object here
@@ -127,20 +145,14 @@
 
 
         function play() {
-            
             var videoSource = new Array();
             var videos = document.getElementById("list").getElementsByTagName("span");
             var j;
             for (j = 0; j < videos.length; j++) {
                 videoSource[j] = "../static/assets/ASL/" + videos[j].textContent + ".mp4";
-               
-
-                // console.log(videoSource);
             }
-
-            var i = 0; // define i
+            var i = 0; 
             var videoCount = videoSource.length;
-
             function videoPlay(videoNum) {
                 document.getElementById("list").getElementsByTagName("span")[videoNum].style.color = "#09edc7";
                 document.getElementById("list").getElementsByTagName("span")[videoNum].style.fontSize = "xx-large";
@@ -171,16 +183,11 @@
         function playPause() {
             if (document.getElementById("videoPlayer").paused) {
                 play();
-                
             }
             else {
                 document.getElementById("videoPlayer").pause();
             }
         }
-
     </script>
-
-
 </body>
-
 </html>

@@ -23,10 +23,10 @@
                     <h3>Text to Sign Language(NSL)</h3>
                     <span style="margin-left: 0;"></span>
                 </div>
-                <form class="mb-4" action="" method="post" align="left">
+                <form class="mb-4" action="" onsubmit="return validateNForm()" method="post" align="left">
                     {% csrf_token %}
                     <label>Enter Text</label>
-                    <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
+                    <input type="text" name="sen" class="mytext" id="nspeechToText" placeholder="">
                     <button type="submit" class="submit btn-submit">Submit</button>
 
                 </form>
@@ -105,7 +105,7 @@
 
         // recognition.onresult = function (event) {
         //     console.log(event)
-        //     document.getElementById('speechToText').value = event.results[0][0].transcript;
+        //     document.getElementById('nspeechToText').value = event.results[0][0].transcript;
         // }
         // recognition.start();
 
@@ -116,11 +116,25 @@
 
         // recognition.onresult = function (event) {
         //     console.log(event)
-        //     document.getElementById('speechToText').value = event.results[0][0].transcript;
+        //     document.getElementById('nspeechToText').value = event.results[0][0].transcript;
         // }
         // recognition.start();
         // }
-
+        
+        function validateNForm() {
+            const alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "del", "nothing", "space"]
+            var ip = document.getElementById("nspeechToText").value;
+            if (ip === "") {
+                alert("Input Cannot be empty");
+                return false; // Prevent form submission
+            } else if (alphabet.includes(ip)) {
+                alert('Input is invalid!');
+                return false;
+            } else {
+                return true; // Continue with form submission
+            }
+            return true; 
+        }
         function play() {
             var videoSource = new Array();
             var videos = document.getElementById("list").getElementsByTagName("span");
