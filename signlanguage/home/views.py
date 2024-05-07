@@ -37,16 +37,16 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse
 import string
 import os
-from nltk.stem import WordNetLemmatizer
+
 from nltk import pos_tag
 from django.contrib.staticfiles import finders
 from sklearn.feature_extraction.text import CountVectorizer
 
 def find_video(word):
-    path = "C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"  # Change 'path_to_video_folder' to your video folder path
+    path = f"C:/django/TheSilentVoice-signlanguagerecognition/signlanguage/static/assets/ASL/{word}.mp4"
     return os.path.isfile(path)
 
-# Function to analyze text using Bag of Words model
+
 def analyze_text(sentence):
     # Tokenizing the sentence
     words = word_tokenize(sentence.lower())
@@ -65,10 +65,37 @@ def analyze_text(sentence):
             elif p in ['JJ', 'JJR', 'JJS', 'RBR', 'RBS']:
                 filtered_text.append(lr.lemmatize(w, pos='a'))
             else:
-                filtered_text.append(lr.lemmatize(w))
+                filtered_text.append(w)
 
     return ' '.join(filtered_text)
 
+
+# def animation_view(request):
+#     if request.method == 'POST':
+#         text = request.POST.get('sen')
+        
+#         analyzed_text = analyze_text(text)
+#         analyzed_text_list = [analyzed_text]
+
+#         vectorizer = CountVectorizer()
+#         X = vectorizer.fit_transform(analyzed_text_list)
+
+#         vocabulary = vectorizer.get_feature_names_out()
+
+#         words = set(vocabulary)  # Convert vocabulary to a set for faster lookup
+
+#         # Reconstructing the words
+#         reconstructed_words = []
+#         for word in analyzed_text.split():  
+#             if word in words:  
+#                 reconstructed_words.append(word)
+#             else: 
+#                 # If word not found, append individual letters
+#                 reconstructed_words.extend(word)
+
+#         return render(request, 'animation.html', {'words': reconstructed_words, 'text': text})
+#     else:
+#         return render(request, 'animation.html')
 def animation_view(request):
     if request.method == 'POST':
         text = request.POST.get('sen')
@@ -76,27 +103,31 @@ def animation_view(request):
         analyzed_text = analyze_text(text)
         analyzed_text_list = [analyzed_text]
 
-    
         vectorizer = CountVectorizer()
         X = vectorizer.fit_transform(analyzed_text_list)
 
         vocabulary = vectorizer.get_feature_names_out()
 
-        words = vocabulary.tolist()
+        words = set(vocabulary)  # Convert vocabulary to a set for faster lookup
 
-        filtered_text = []
-        for w in words:
-            if find_video(w):
-                filtered_text.append(w)
-            else:
-                for c in w:
-                    filtered_text.append(c)
+        # Reconstructing the words
+        reconstructed_words = []
+        for word in analyzed_text.split():  
+            if word in words:  
+                if find_video(word):  # Check if a video exists for the word
+                    reconstructed_words.append(word)
+                else:
+                    # If video for word is not present, break the word into letters
+                    reconstructed_words.extend(word)
+            else: 
+                # If word not found, append individual letters
+                reconstructed_words.extend(word)
 
-        words = filtered_text
-
-        return render(request, 'animation.html', {'words': words, 'text': text})
+        return render(request, 'animation.html', {'words': reconstructed_words, 'text': text})
     else:
         return render(request, 'animation.html')
+
+
 
 import unicodedata
 

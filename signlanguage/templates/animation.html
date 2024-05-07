@@ -10,105 +10,109 @@
 </head>
 
 <body class="inner">
-    <div class="container  my-5 card">
-        <div class="row">
-            <div class="py-large col-lg-6 inner-section  pl-4 pr-5 ">
-                <a class="inner-link" href="http://127.0.0.1:8000/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
-                    </svg> Home</a>
+    <div class="container  my-5">
+        <div class="card">
 
-                <div class="section-title mt-3" style="margin-bottom: 45px;">
-                    <h3>Text to Sign Language(ASL)</h3>
-                    <span style="margin-left: 0;"></span>
-                </div>
-                <form class="mb-4" action="" onsubmit="return validateForm()" method="post" align="left">
-                    {% csrf_token %}
-                    <label>Enter Text or Start Recording</label>
-                    <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
-                    <!-- <button type="button" name="button" class="mic record-btn" onclick="record()"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                                    <path fill="white"
-                                        d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                                </svg>
-                            </button> -->
-                    <button type="button" class="record-btn" id="micButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                            <path fill="white"
-                                d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                        </svg>
-                    </button>
-                    <button type="button" class="record-btn--stop" id="stopButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
-                            <path fill="white"
-                                d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
-                        </svg>
-                    </button>   
-                    <button type="submit" class="submit btn-submit">Submit</button>
-
-                </form>
-                    <div class="mb-4">
-                        <p>Entered Text:</p>
-                        <div class="text-box">
-                            <span class="text-input">{{ text }}</span>
-
-                        </div>
+            <div class="row ">
+                <div class="py-large col-lg-6 inner-section  pl-4 pr-5 ">
+                    <a class="inner-link" href="http://127.0.0.1:8000/"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                        </svg> Home</a>
+    
+                    <div class="section-title mt-3" style="margin-bottom: 45px;">
+                        <h3>Text to Sign Language(ASL)</h3>
+                        <span style="margin-left: 0;"></span>
                     </div>
-                    <div id="list" style="list-style: none;">
-                        <p>Keywords in sentence: </p>
-
-                        <div class="text-box" id="list">
-                            {% for word in words %}
-                            <span id="{{ i }}" style="margin-right: 8px">{{ word }}</span>
-                            {% endfor %}
+                    <form class="mb-4" action="" onsubmit="return validateForm()" method="post" align="left">
+                        {% csrf_token %}
+                        <label>Enter Text or Start Recording</label>
+                        <input type="text" name="sen" class="mytext" id="speechToText" placeholder="">
+    
+                        <button type="button" class="record-btn" id="micButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
+                                <path fill="white"
+                                    d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
+                            </svg>
+                        </button>
+                        <button type="button" class="record-btn--stop" id="stopButton">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256">
+                                <path fill="white"
+                                    d="M128 176a48.05 48.05 0 0 0 48-48V64a48 48 0 0 0-96 0v64a48.05 48.05 0 0 0 48 48ZM96 64a32 32 0 0 1 64 0v64a32 32 0 0 1-64 0Zm40 143.6V232a8 8 0 0 1-16 0v-24.4A80.11 80.11 0 0 1 48 128a8 8 0 0 1 16 0a64 64 0 0 0 128 0a8 8 0 0 1 16 0a80.11 80.11 0 0 1-72 79.6Z" />
+                            </svg>
+                        </button>   
+                        <button type="submit" class="submit btn-submit">Submit</button>
+    
+                    </form>
+                        <div class="mb-4">
+                            <p>Entered Text:</p>
+                            <div class="text-box">
+                                <span class="text-input">{{ text }}</span>
+    
+                            </div>
                         </div>
-                    </div>
-            </div>
-
-
-        <div class="col-lg-6 d-flex align-items-center justify-content-center bg" style="background-image: url('../static/assets/img/abstrac.jpg');">
-            <div class="px-4 py-5">
-
-                <div style="text-align:center"> &nbsp&nbsp
-                    <button class="submit btn-vid" id="btn-animate" onclick="playPause()">
-                        Play Animation
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-                            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                        </svg>
-                    </button>
-
-
-
-                    <video id="videoPlayer" src="" width="500" height="350" preload="auto" autoplay>
-                        <source src="" type="video/mp4">
-                        Your browser does not support HTML5 video.
-                    </video>
+                        <div id="list" style="list-style: none;">
+                            <p>Keywords in sentence: </p>
+    
+                            <div class="text-box" id="list">
+                                {% for word in words %}
+                                <span id="{{ i }}" style="margin-right: 8px">{{ word }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
                 </div>
+    
+    
+            <div class="col-lg-6 d-flex align-items-center justify-content-center bg" style="background-image: url('../static/assets/img/abstrac.jpg');">
+                <div class="px-4 py-5">
+    
+                    <div style="text-align:center"> &nbsp&nbsp
+                        <button class="submit btn-vid" id="btn-animate" onclick="playPause()">
+                            Play Animation
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                        </button>
+    
+    
+    
+                        <video id="videoPlayer" src="" width="500" height="350" preload="auto" autoplay>
+                            <source src="" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                        </video>
+                    </div>
+                </div>
+    
             </div>
-
         </div>
+        </div>
+        <div class=" mt-4"><h5 class="text-white" style="text-align: end;">Video Credits : jigargajjar55 </h5> 
+        </div>
+   
     </div>
     <script>
-        User
 function validateForm() {
             const alphabet = [
-            "क", "क्ष", "ख", "ग", "घ", "ङ", "च", "छ","ज", "ज्ञ","झ","ञ","ट","ठ","ड","ढ","ण","त","त्र","थ","द","ध","न","प","फ","ब","भ","म","य","र","ल","व","श","ष","स","ह"
+            "क", "क्ष", "ख", "ग", "घ", "ङ", "च", "छ","ज", "ज्ञ","झ","ञ","ट","ठ","ड","ढ","ण","त","त्र","थ","द","ध","न","प","फ","ब","भ","म","य","र","ल","व","श","ष","स","ह","१", "२", "३", "४", "५", "६", "७", "८", "९","0","1","2","3","4","5","6","7","8","9"
             ];
             var ip = document.getElementById("speechToText").value;
 
             if (ip === "") {
                 alert("Input Cannot be empty");
                 return false; // Prevent form submission
-            } else if (alphabet.includes(ip)) {
-                alert('Input is invalid!');
-                return false;
             } 
             else if (ip.length === 1) {
                 alert('Input is invalid!');
                 return false;
             } 
             else {
+                for (let i = 0; i < ip.length; i++) {
+                    if (alphabet.includes(ip[i])) {
+                        alert('Input contains invalid character');
+                        return false; // Prevent form submission
+                    }
+                }
                 return true; // Continue with form submission
             }
         }

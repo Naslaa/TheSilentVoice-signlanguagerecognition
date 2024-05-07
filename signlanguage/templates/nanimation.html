@@ -44,9 +44,7 @@
                             {% for char in text %}
                             <span class="text-input">{{ char }}</span>
                             {% endfor %}
-                            <!-- {% for letter in letters %}
-                            <span id="{{ i }}" style="margin-right: 8px">{{ letter }}</span>
-                            {% endfor %} -->
+                        
                         </div>
                     </div>
             </div>
@@ -62,11 +60,7 @@
                             <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                         </svg>
                     </button>
-                    <!--  LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN ASHISH
-                    
-                          <button onclick="makeBig()">Big</button>
-                          <button onclick="makeSmall()">Small</button>
-                          <button onclick="makeNormal()">Normal</button>-->
+
 
 
                     <video id="videoPlayer" src="" width="600" height="350" preload="auto" autoplay>
@@ -84,57 +78,27 @@
     <script src="../static/assets/js/main.js"></script>
     <script>
 
-        // const micButton = document.getElementById('micButton');
-        // const stopButton = document.getElementById('stopButton');
-        // stopButton.style.display == "none";
-        // let isRecording = false;
-        // const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-        // recognition.continuous = true;
-        // recognition.interimResults = true;
 
-        // micButton.addEventListener('click', () => {
-        //     if (!isRecording) {
-        //         micButton.style.backgroundColor = "red";
-        //         recognition.start();
-        //     } else {
-        //         micButton.style.backgroundColor = "#0466c8e6";
-        //         recognition.stop();
-        //     }
-        //     isRecording = !isRecording;
-        // });
-
-        // recognition.onresult = function (event) {
-        //     console.log(event)
-        //     document.getElementById('nspeechToText').value = event.results[0][0].transcript;
-        // }
-        // recognition.start();
-
-        //webkitSpeechRecognition api for speech to text conversion
-        // function record() {
-        //     var recognition = new webkitSpeechRecognition();
-        //     recognition.lang = 'en-IN';
-
-        // recognition.onresult = function (event) {
-        //     console.log(event)
-        //     document.getElementById('nspeechToText').value = event.results[0][0].transcript;
-        // }
-        // recognition.start();
-        // }
         
         function validateNForm() {
-            const alphabet =["A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "del", "nothing", "space"]
+            const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z","०", "१", "२", "३", "४", "५", "६", "७", "८", "९","0","1","2","3","4","5","6","7","8","9"];
             var ip = document.getElementById("nspeechToText").value;
+            
             if (ip === "") {
-                alert("Input Cannot be empty");
+                alert("Input cannot be empty");
                 return false; // Prevent form submission
-            } else if (alphabet.includes(ip)) {
-                alert('Input is invalid!');
-                return false;
             } else {
-                return true; // Continue with form submission
+                ip = ip.toUpperCase();
+                for (let i = 0; i < ip.length; i++) {
+                    if (alphabet.includes(ip[i])) {
+                        alert('Input contains invalid character');
+                        return false; // Prevent form submission
+                    }
+                }
+                return true;
             }
-            return true; 
         }
+        
         function play() {
             var videoSource = new Array();
             var videos = document.getElementById("list").getElementsByTagName("span");
@@ -175,21 +139,7 @@
                 }
             }
         }
-        /* LETS USE ONLY PLAY PAUSE BUTTON WITH 720 *420 ,IT FITS THE SCREEN
-        function makeBig() {
-            document.getElementById("videoPlayer").width = 560;
-            document.getElementById("videoPlayer").height = 360;
-        }
-    
-        function makeSmall() {
-            document.getElementById("videoPlayer").width = 320;
-            document.getElementById("videoPlayer").height = 180;
-        }
-    
-        function makeNormal() {
-            document.getElementById("videoPlayer").width = 420;
-            document.getElementById("videoPlayer").height =280;
-        }*/
+
         function playPause() {
             if (document.getElementById("videoPlayer").paused) {
                 play();
